@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using HealthPlusPlus_AW.Domain.Models;
 
-namespace HealthPlusPlus_AW.Domain.Repositories
+namespace HealthPlusPlus_AW.Domain.Services
 {
-    public interface IDiagnosicRepository
+    public interface IDiagnosticService
     {
         Task<IEnumerable<Diagnostic>> ListAsync();
     }

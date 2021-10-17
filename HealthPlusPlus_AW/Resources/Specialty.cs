@@ -1,4 +1,4 @@
-﻿namespace HealthPlusPlus_AW.Domain.Models
+﻿namespace HealthPlusPlus_AW.Resources
 {
     public class Specialty
     {
