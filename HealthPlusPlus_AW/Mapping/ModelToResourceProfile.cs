@@ -10,6 +10,7 @@ namespace HealthPlusPlus_AW.Mapping
         {
             CreateMap<Category, CategoryResource>();
             CreateMap<Specialty, SpecialtyResource>();
+            CreateMap<User, UserResource>();
         }
     }
 }
