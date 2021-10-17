@@ -2,7 +2,7 @@
 
 namespace HealthPlusPlus_AW.Resources
 {
-    public class AppointmentDetails
+    public class AppointmentDetailsResource
     {
         public int Id { get; set; }
         public DateTime UserStartAt { get; set; }
@@ -10,6 +10,6 @@ namespace HealthPlusPlus_AW.Resources
         public DateTime UserEndAt { get; set; }
         public DateTime DoctorEndAt { get; set; }
         
-        public Diagnostic Diagnostic { get; set; }
+        public DiagnosticResource DiagnosticResource { get; set; }
     }
 }

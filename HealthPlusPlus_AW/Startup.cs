@@ -47,9 +47,15 @@ namespace HealthPlusPlus_AW
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "HealthPlusPlus_AW", Version = "v1"});
             });
 
+            
+            services.AddAutoMapper(typeof(Startup));
+            
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
-            services.AddAutoMapper(typeof(Startup));
+            
+            services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
+            services.AddScoped<ISpecialtyService, SpecialtyService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

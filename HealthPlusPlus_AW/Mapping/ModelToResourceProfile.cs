@@ -9,6 +9,7 @@ namespace HealthPlusPlus_AW.Mapping
         public ModelToResourceProfile()
         {
             CreateMap<Category, CategoryResource>();
+            CreateMap<Specialty, SpecialtyResource>();
         }
     }
 }

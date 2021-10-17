@@ -1,6 +1,6 @@
 ﻿namespace HealthPlusPlus_AW.Resources
 {
-    public class ClinicLocation
+    public class ClinicLocationResource
     {
         public int Id { get; set; }
         public string Address { get; set; }

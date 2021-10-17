@@ -21,6 +21,7 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<MedicalHistory> MedicalHistories { get; set; }
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<Specialty> Specialties { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -100,9 +101,6 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             
             //Constraints
             builder.Entity<Clinic>().ToTable("Clinic");
-            builder.Entity<Clinic>().HasKey(p => p.Id);
-            builder.Entity<Clinic>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Clinic>().Property(p => p.ClinicLocation);
             
             //Relationships
             
@@ -139,8 +137,6 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             
             //Constraints
             builder.Entity<Doctor>().ToTable("Doctor");
-            builder.Entity<Doctor>().HasKey(p => p.Id);
-            builder.Entity<Doctor>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
 
             //Relationships
             
@@ -161,8 +157,6 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             
             //Constraints
             builder.Entity<Patient>().ToTable("Patient");
-            builder.Entity<Patient>().HasKey(p => p.Id);
-            builder.Entity<Patient>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Patient>().Property(p => p.Address).IsRequired();
 
             //Relationships
@@ -180,12 +174,18 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
 
             //Relationships
             
+            builder.Entity<Specialty>().HasData
+            (
+                new Specialty() {Id = 100, Name = "No", Description = "No"},
+                new Specialty() {Id = 101, Name = "Yes", Description = "Yes"}
+            );
+            
             //**********//
             //User//
             //**********//
             
             //Constraints
-            builder.Entity<User>().ToTable("Specialty");
+            builder.Entity<User>().ToTable("User");
             builder.Entity<User>().HasKey(p => p.Id);
             builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<User>().Property(p => p.Dni).IsRequired();
