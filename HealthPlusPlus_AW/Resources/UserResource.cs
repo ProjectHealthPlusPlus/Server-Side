@@ -1,6 +1,6 @@
 ﻿namespace HealthPlusPlus_AW.Resources
 {
-    public class User
+    public class UserResource
     {
         public int Id { get; set; } 
         public string Dni { get; set; } 

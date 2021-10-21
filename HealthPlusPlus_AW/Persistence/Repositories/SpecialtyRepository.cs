@@ -8,20 +8,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthPlusPlus_AW.Persistence.Repositories
 {
-    public class CategoryRepository : BaseRepository, ICategoryRepository
+    public class SpecialtyRepository : BaseRepository, ISpecialtyRepository
     {
-        public CategoryRepository(AppDbContext context) : base(context)
+        public SpecialtyRepository(AppDbContext context) : base(context)
         {
         }
 
-        public async Task<IEnumerable<Category>> ListAsync()
+        public async Task<IEnumerable<Specialty>> ListAsync()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Specialties.ToListAsync();
         }
 
-        public async Task AddAsync(Category category)
+        public async Task AddAsync(Specialty specialty)
         {
-            await _context.Categories.AddAsync(category);
+            await _context.Specialties.AddAsync(specialty);
         }
     }
 }
