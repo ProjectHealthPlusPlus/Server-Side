@@ -7,5 +7,6 @@ namespace HealthPlusPlus_AW.Domain.Repositories
     public interface IUserRepository
     {
         Task<IEnumerable<User>> ListAsync();
+        Task AddAsync(User user);
     }
 }

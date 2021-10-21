@@ -18,5 +18,10 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
         {
             return await _context.Specialties.ToListAsync();
         }
+
+        public async Task AddAsync(Specialty specialty)
+        {
+            await _context.Specialties.AddAsync(specialty);
+        }
     }
 }

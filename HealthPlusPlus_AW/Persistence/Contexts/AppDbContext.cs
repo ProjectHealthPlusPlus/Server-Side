@@ -169,8 +169,8 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             builder.Entity<Specialty>().ToTable("Specialty");
             builder.Entity<Specialty>().HasKey(p => p.Id);
             builder.Entity<Specialty>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<Specialty>().Property(p => p.Name).IsRequired();
-            builder.Entity<Specialty>().Property(p => p.Description).IsRequired();
+            builder.Entity<Specialty>().Property(p => p.Name).IsRequired().HasMaxLength(30);
+            builder.Entity<Specialty>().Property(p => p.Description).IsRequired().HasMaxLength(30);
 
             //Relationships
             
@@ -188,11 +188,16 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             builder.Entity<User>().ToTable("User");
             builder.Entity<User>().HasKey(p => p.Id);
             builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<User>().Property(p => p.Dni).IsRequired();
-            builder.Entity<User>().Property(p => p.Name).IsRequired();
-            builder.Entity<User>().Property(p => p.Lastname).IsRequired();
+            builder.Entity<User>().Property(p => p.Dni).IsRequired().HasMaxLength(2);
+            builder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(30);
+            builder.Entity<User>().Property(p => p.Lastname).IsRequired().HasMaxLength(30);
             builder.Entity<User>().Property(p => p.Age).IsRequired();
 
+            builder.Entity<User>().HasData
+            (
+                new User() {Id = 100, Dni = "73386178", Name = "Diego", Lastname = "HZ", Age = 21}
+            );
+            
             //Relationships
         }
     }

@@ -7,5 +7,6 @@ namespace HealthPlusPlus_AW.Domain.Repositories
     public interface ISpecialtyRepository
     {
         Task<IEnumerable<Specialty>> ListAsync();
+        Task AddAsync(Specialty specialty);
     }
 }
