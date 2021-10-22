@@ -60,7 +60,7 @@ namespace HealthPlusPlus_AW
             services.AddScoped<ICategoryService, CategoryService>();
             
             
-            services.AddScoped<IAppointmentDetailsRepository, AppointmentRepository>();
+            services.AddScoped<IAppointmentDetailsRepository, AppointmentDetailsRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IClinicLocationRepository, ClinicLocationRepository>();
             services.AddScoped<IClinicRepository, ClinicRepository>();
@@ -68,6 +68,7 @@ namespace HealthPlusPlus_AW
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            
             
             services.AddScoped<ISpecialtyService, SpecialtyService>();
             services.AddScoped<IUserService, UserService>();
