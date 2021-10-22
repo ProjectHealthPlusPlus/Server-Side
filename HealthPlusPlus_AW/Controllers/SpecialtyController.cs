@@ -44,5 +44,29 @@ namespace HealthPlusPlus_AW.Controllers
             var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Specialty);
             return Ok(specialtyResource);
         }
+        
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveSpecialtyResource resource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessage());
+
+            var specialty = _mapper.Map<SaveSpecialtyResource, Specialty>(resource);
+            var result = await _specialtyService.UpdateAsync(id, specialty);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            
+            var categoryResource = _mapper.Map<Specialty, SpecialtyResource>(result.Specialty);
+            return Ok(categoryResource);
+        }
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id) {
+            var result = await _specialtyService.DeleteAsync(id);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var categoryResource = _mapper.Map<Specialty, SpecialtyResource>(result.Specialty);
+            return Ok(categoryResource);    
+        }
     }
 }

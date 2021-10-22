@@ -4,11 +4,11 @@ namespace HealthPlusPlus_AW.Services.Communications
 {
     public class SaveMedicalHistoryResponse : BaseResponse
     {
-        public MedicalHistory Category { get; private set; }
+        public MedicalHistory MedicalHistory { get; private set; }
 
-        public SaveMedicalHistoryResponse(bool success, string message, MedicalHistory category) : base(success, message)
+        public SaveMedicalHistoryResponse(bool success, string message, MedicalHistory medicalHistory) : base(success, message)
         {
-            Category = category;
+            MedicalHistory = medicalHistory;
         }
 
         public SaveMedicalHistoryResponse(MedicalHistory medicalHistory) : this(true, string.Empty, medicalHistory){}

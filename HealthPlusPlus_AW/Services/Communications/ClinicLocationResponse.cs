@@ -4,11 +4,11 @@ namespace HealthPlusPlus_AW.Services.Communications
 {
     public class ClinicLocationResponse : BaseResponse
     {
-        public ClinicLocation Clinic { get; private set; }
+        public ClinicLocation ClinicLocation { get; private set; }
 
-        public ClinicLocationResponse(bool success, string message, ClinicLocation clinic) : base(success, message)
+        public ClinicLocationResponse(bool success, string message, ClinicLocation clinicLocation) : base(success, message)
         {
-            Clinic = clinic;
+            ClinicLocation = clinicLocation;
         }
 
         public ClinicLocationResponse(ClinicLocation clinicLocation) : this(true, string.Empty, clinicLocation)
