@@ -66,10 +66,19 @@ namespace HealthPlusPlus_AW
             services.AddScoped<IClinicRepository, ClinicRepository>();
             services.AddScoped<IDiagnosticRepository, DiagnosticRepository>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IMedicalHistoryRepository, MedicalHistoryRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             
-            
+            services.AddScoped<IAppointmentDetailsService, IAppointmentDetailsService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IClinicLocationService, ClinicLocationService>();
+            services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<IDiagnosticService, DiagnosticService>();
+            services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<IMedicalHistoryService, MedicalHistoryService>();
+            services.AddScoped<IPatientService, PatientService>();
             services.AddScoped<ISpecialtyService, SpecialtyService>();
             services.AddScoped<IUserService, UserService>();
             

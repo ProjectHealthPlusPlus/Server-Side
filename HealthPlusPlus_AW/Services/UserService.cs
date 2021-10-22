@@ -38,5 +38,55 @@ namespace HealthPlusPlus_AW.Services
                 return new SaveUserResponse($"An error ocurred while saving: {e.Message}");
             }
         }
+
+        public Task<SaveUserResponse> FindIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<SaveUserResponse> UpdateAsync(int id, User user)
+        {
+            var existingCategory = await _userRepository.FindIdAsync(id);
+
+            if (existingCategory == null)
+                return new SaveUserResponse("Category no found.");
+
+            existingCategory.Dni = user.Dni;
+            existingCategory.Name = user.Name;
+            existingCategory.Lastname = user.Lastname;
+            existingCategory.Age = user.Age;
+            
+            try
+            {
+                _userRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new SaveUserResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new SaveUserResponse($"An error occurred while updating the category: {e.Message}");
+            }
+        }
+
+        public async Task<UserResponse> DeleteAsync(int id)
+        {
+            var existingCategory = await _userRepository.FindIdAsync(id);
+
+            if (existingCategory == null)
+                return new UserResponse("Category not found.");
+
+            try
+            {
+                _userRepository.Remove(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new UserResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new UserResponse($"An error occurred while deleting category: {e.Message}");
+            }
+        }
     }
 }

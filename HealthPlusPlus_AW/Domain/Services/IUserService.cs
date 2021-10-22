@@ -9,5 +9,8 @@ namespace HealthPlusPlus_AW.Domain.Services
     {
         Task<IEnumerable<User>> ListAsync();
         Task<SaveUserResponse> SaveAsync(User user);
+        Task<SaveUserResponse> FindIdAsync(int id);
+        Task<SaveUserResponse> UpdateAsync(int id, User user);
+        Task<UserResponse> DeleteAsync(int id);
     }
 }
