@@ -71,7 +71,7 @@ namespace HealthPlusPlus_AW
             services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             
-            services.AddScoped<IAppointmentDetailsService, IAppointmentDetailsService>();
+            services.AddScoped<IAppointmentDetailsService, AppointmentDetailsService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IClinicLocationService, ClinicLocationService>();
             services.AddScoped<IClinicService, ClinicService>();
