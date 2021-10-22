@@ -10,5 +10,8 @@ namespace HealthPlusPlus_AW.Domain.Services
     {
         Task<IEnumerable<Specialty>> ListAsync();
         Task<SaveSpecialtyResponse> SaveAsync(Specialty specialty);
+        Task<SaveSpecialtyResponse> FindIdAsync(int id);
+        Task<SaveSpecialtyResponse> UpdateAsync(int id, Specialty specialty);
+        Task<SpecialtyResponse> DeleteAsync(int id);
     }
 }

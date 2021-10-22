@@ -40,7 +40,7 @@ namespace HealthPlusPlus_AW.Services
             }
             catch (Exception e)
             {
-                return new SaveCategoryResponse($"An error ocurred while saving: {e.Message}");
+                return new SaveCategoryResponse($"An error occurred while saving: {e.Message}");
             }
         }
 
