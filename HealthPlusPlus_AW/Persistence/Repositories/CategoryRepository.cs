@@ -23,5 +23,20 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
         {
             await _context.Categories.AddAsync(category);
         }
+
+        public async Task<Category> FindIdAsync(int id)
+        {
+            return await _context.Categories.FindAsync();
+        }
+
+        public void Update(Category category)
+        {
+            _context.Categories.Update(category);
+        }
+
+        public void Remove(Category category)
+        {
+            _context.Categories.Remove(category);
+        }
     }
 }
