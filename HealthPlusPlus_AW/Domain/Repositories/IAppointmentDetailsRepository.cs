@@ -7,5 +7,9 @@ namespace HealthPlusPlus_AW.Domain.Repositories
     public interface IAppointmentDetailsRepository
     {
         Task<IEnumerable<AppointmentDetails>> ListAsync();
+        Task AddAsync(AppointmentDetails appointmentDetails);
+        Task<AppointmentDetails> FindIdAsync(int id);
+        void Update(AppointmentDetails appointmentDetails);
+        void Remove(AppointmentDetails appointmentDetails);
     }
 }

@@ -8,5 +8,8 @@ namespace HealthPlusPlus_AW.Domain.Repositories
     {
         Task<IEnumerable<Specialty>> ListAsync();
         Task AddAsync(Specialty specialty);
+        Task<Specialty> FindIdAsync(int id);
+        void Update(Specialty specialty);
+        void Remove(Specialty specialty);
     }
 }

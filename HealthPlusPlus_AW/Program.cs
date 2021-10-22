@@ -17,7 +17,7 @@ namespace HealthPlusPlus_AW
         {
             // CreateHostBuilder(args).Build().Run();
             var host = CreateHostBuilder(args).Build();
-            using(var scope = host.Services.CreateScope())
+            using (var scope = host.Services.CreateScope()) 
             using (var context = scope.ServiceProvider.GetService<AppDbContext>())
             {
                 context.Database.EnsureCreated();

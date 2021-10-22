@@ -23,5 +23,20 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
          {
              await _context.Users.AddAsync(user);
          }
+
+         public async Task<User> FindIdAsync(int id)
+         {
+             return await _context.Users.FindAsync();
+         }
+
+         public void Update(User user)
+         {
+             _context.Users.Update(user);
+         }
+
+         public void Remove(User user)
+         {
+             _context.Users.Remove(user);
+         }
     }
 }

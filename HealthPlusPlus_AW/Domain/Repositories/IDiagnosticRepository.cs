@@ -7,5 +7,9 @@ namespace HealthPlusPlus_AW.Domain.Repositories
     public interface IDiagnosticRepository
     {
         Task<IEnumerable<Diagnostic>> ListAsync();
+        Task AddAsync(Diagnostic diagnostic);
+        Task<Diagnostic> FindIdAsync(int id);
+        void Update(Diagnostic diagnostic);
+        void Remove(Diagnostic diagnostic);
     }
 }

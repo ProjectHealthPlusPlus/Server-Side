@@ -47,15 +47,29 @@ namespace HealthPlusPlus_AW
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "HealthPlusPlus_AW", Version = "v1"});
             });
             
+            //Database
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
+            });
+            
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
             
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
             
+            
+            services.AddScoped<IAppointmentDetailsRepository, AppointmentRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IClinicLocationRepository, ClinicLocationRepository>();
+            services.AddScoped<IClinicRepository, ClinicRepository>();
+            services.AddScoped<IDiagnosticRepository, DiagnosticRepository>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
-            services.AddScoped<ISpecialtyService, SpecialtyService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            
+            services.AddScoped<ISpecialtyService, SpecialtyService>();
             services.AddScoped<IUserService, UserService>();
             
         }

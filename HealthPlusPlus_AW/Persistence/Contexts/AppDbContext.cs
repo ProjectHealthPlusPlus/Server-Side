@@ -1,4 +1,5 @@
 ﻿using HealthPlusPlus_AW.Domain.Models;
+using HealthPlusPlus_AW.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace HealthPlusPlus_AW.Persistence.Contexts
@@ -197,8 +198,10 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             (
                 new User() {Id = 100, Dni = "73386178", Name = "Diego", Lastname = "HZ", Age = 21}
             );
-            
+
             //Relationships
+            
+            builder.UseSnakeCaseNamingConvention(); 
         }
     }
 }
