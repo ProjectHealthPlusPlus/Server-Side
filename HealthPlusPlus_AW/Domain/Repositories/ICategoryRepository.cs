@@ -9,5 +9,9 @@ namespace HealthPlusPlus_AW.Domain.Repositories
     public interface ICategoryRepository
     {
         Task<IEnumerable<Category>> ListAsync();
+        Task AddAsync(Category category);
+        Task<Category> FindIdAsync(int id);
+        void Update(Category category);
+        void Remove(Category category);
     }
 }

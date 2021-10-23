@@ -46,10 +46,42 @@ namespace HealthPlusPlus_AW
                 c.EnableAnnotations();
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "HealthPlusPlus_AW", Version = "v1"});
             });
-
+            
+            //Database
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
+            });
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddAutoMapper(typeof(Startup));
+            
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
-            services.AddAutoMapper(typeof(Startup));
+            
+            
+            services.AddScoped<IAppointmentDetailsRepository, AppointmentDetailsRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IClinicLocationRepository, ClinicLocationRepository>();
+            services.AddScoped<IClinicRepository, ClinicRepository>();
+            services.AddScoped<IDiagnosticRepository, DiagnosticRepository>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IMedicalHistoryRepository, MedicalHistoryRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            
+            services.AddScoped<IAppointmentDetailsService, AppointmentDetailsService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IClinicLocationService, ClinicLocationService>();
+            services.AddScoped<IClinicService, ClinicService>();
+            services.AddScoped<IDiagnosticService, DiagnosticService>();
+            services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<IMedicalHistoryService, MedicalHistoryService>();
+            services.AddScoped<IPatientService, PatientService>();
+            services.AddScoped<ISpecialtyService, SpecialtyService>();
+            services.AddScoped<IUserService, UserService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
