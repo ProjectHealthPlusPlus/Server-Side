@@ -29,6 +29,17 @@ namespace HealthPlusPlus_AW.Controllers
             return resources;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var result = await _appointmentService.FindIdAsync(id);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var appointmentResource = _mapper.Map<Appointment, AppointmentResource>(result.Appointment);
+            return Ok(appointmentResource);    
+        }
+
+        
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveAppointmentResource resource)
         {
