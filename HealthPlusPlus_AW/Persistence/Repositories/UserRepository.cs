@@ -26,7 +26,7 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
 
          public async Task<User> FindIdAsync(int id)
          {
-             return await _context.Users.FindAsync();
+             return await _context.Users.FindAsync(id);
          }
 
          public void Update(User user)
