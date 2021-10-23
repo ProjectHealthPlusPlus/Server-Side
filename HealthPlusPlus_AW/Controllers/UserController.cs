@@ -35,8 +35,8 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _userService.FindIdAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var categoryResource = _mapper.Map<User, UserResource>(result.User);
-            return Ok(categoryResource);    
+            var userResource = _mapper.Map<User, UserResource>(result.User);
+            return Ok(userResource);    
         }
         
         [HttpPost]

@@ -29,6 +29,16 @@ namespace HealthPlusPlus_AW.Controllers
             return resources;
         }
         
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var result = await _clinicService.FindIdAsync(id);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var clinicResource = _mapper.Map<Clinic, ClinicResource>(result.Clinic);
+            return Ok(clinicResource);    
+        }
+        
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveMedicalHistoryResource resource)
         {

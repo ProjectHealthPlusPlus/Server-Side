@@ -29,6 +29,16 @@ namespace HealthPlusPlus_AW.Controllers
             return resources;
         }
         
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var result = await _clinicLocationService.FindIdAsync(id);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var clinicLocationResource = _mapper.Map<ClinicLocation, ClinicLocationResource>(result.ClinicLocation);
+            return Ok(clinicLocationResource);    
+        }
+        
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveClinicLocationResource resource)
         {
@@ -64,8 +74,8 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _clinicLocationService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var medicalHistoryResource = _mapper.Map<ClinicLocation, ClinicResource>(result.ClinicLocation);
-            return Ok(medicalHistoryResource);    
+            var clinicLocationResource = _mapper.Map<ClinicLocation, ClinicLocationResource>(result.ClinicLocation);
+            return Ok(clinicLocationResource);    
         }
     }
 }
