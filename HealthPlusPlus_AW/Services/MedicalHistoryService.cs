@@ -39,9 +39,21 @@ namespace HealthPlusPlus_AW.Services
             }
         }
 
-        public Task<SaveMedicalHistoryResponse> FindIdAsync(int id)
+        public async Task<SaveMedicalHistoryResponse> FindIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var existingCategory = await _medicalHistoryRepository.FindIdAsync(id);
+            try
+            {
+                _medicalHistoryRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new SaveMedicalHistoryResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new SaveMedicalHistoryResponse($"An error occurred while updating the category: {e.Message}");
+            }
+
         }
 
         public async Task<SaveMedicalHistoryResponse> UpdateAsync(int id, MedicalHistory medicalHistory)

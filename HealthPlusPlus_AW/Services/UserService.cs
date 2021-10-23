@@ -39,9 +39,20 @@ namespace HealthPlusPlus_AW.Services
             }
         }
 
-        public Task<SaveUserResponse> FindIdAsync(int id)
+        public async Task<SaveUserResponse> FindIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var existingCategory = await _userRepository.FindIdAsync(id);
+            try
+            {
+                _userRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new SaveUserResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new SaveUserResponse($"An error occurred while updating the category: {e.Message}");
+            }
         }
 
         public async Task<SaveUserResponse> UpdateAsync(int id, User user)

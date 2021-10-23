@@ -39,9 +39,20 @@ namespace HealthPlusPlus_AW.Services
             }
         }
 
-        public Task<SaveClinicLocationResponse> FindIdAsync(int id)
+        public async Task<SaveClinicLocationResponse> FindIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var existingCategory = await _clinicLocationRepository.FindIdAsync(id);
+            try
+            {
+                _clinicLocationRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new SaveClinicLocationResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new SaveClinicLocationResponse($"An error occurred while updating the category: {e.Message}");
+            }
         }
 
         public async Task<SaveClinicLocationResponse> UpdateAsync(int id, ClinicLocation clinicLocation)

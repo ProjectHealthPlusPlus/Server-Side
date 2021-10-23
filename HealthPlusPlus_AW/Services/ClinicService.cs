@@ -39,14 +39,48 @@ namespace HealthPlusPlus_AW.Services
             }
         }
 
-        public Task<SaveClinicResponse> FindIdAsync(int id)
+        public async Task<SaveClinicResponse> FindIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var existingCategory = await _clinicRepository.FindIdAsync(id);
+            try
+            {
+                _clinicRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new SaveClinicResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new SaveClinicResponse($"An error occurred while updating the category: {e.Message}");
+            }
         }
 
-        public Task<SaveClinicResponse> UpdateAsync(int id, Clinic clinic)
+        public async Task<SaveClinicResponse> UpdateAsync(int id, Clinic clinic)
         {
-            throw new System.NotImplementedException();
+            var existingCategory = await _clinicRepository.FindIdAsync(id);
+
+            if (existingCategory == null)
+                return new SaveClinicResponse("Category no found.");
+            
+            existingCategory.Dni = clinic.Dni;
+            existingCategory.Name = clinic.Name;
+            existingCategory.Lastname = clinic.Lastname;
+            existingCategory.Age = clinic.Age;
+            
+            existingCategory.ClinicLocation = clinic.ClinicLocation;
+            existingCategory.MedicalHistories = clinic.MedicalHistories;
+
+            try
+            {
+                _clinicRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new SaveClinicResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new SaveClinicResponse($"An error occurred while updating the category: {e.Message}");
+            }
         }
 
         public async Task<ClinicResponse> DeleteAsync(int id)
