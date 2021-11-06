@@ -35,8 +35,16 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _clinicService.FindIdAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var clinicResource = _mapper.Map<Clinic, ClinicResource>(result.Clinic);
+            var clinicResource = _mapper.Map<Clinic, ClinicResource>(result.Resource);
             return Ok(clinicResource);    
+        }
+        
+        [HttpGet("/clinic/clinicLocation/{id}")]
+        public async Task<IEnumerable<ClinicResource>> GetClinicByClinicLocationIdAsync(int id)
+        {
+            var products = await _clinicService.ListByClinicLocationIdAsync(id);
+            var resources = _mapper.Map<IEnumerable<Clinic>, IEnumerable<ClinicResource>>(products);
+            return resources;
         }
         
         [HttpPost]
@@ -50,7 +58,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Clinic, ClinicResource>(result.Clinic);
+            var categoryResource = _mapper.Map<Clinic, ClinicResource>(result.Resource);
             return Ok(categoryResource);
         }
         
@@ -65,7 +73,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             
-            var clinicResource = _mapper.Map<Clinic, SaveMedicalHistoryResource>(result.Clinic);
+            var clinicResource = _mapper.Map<Clinic, SaveMedicalHistoryResource>(result.Resource);
             return Ok(clinicResource);
         }
         
@@ -74,7 +82,7 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _clinicService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var clinicResource = _mapper.Map<Clinic, ClinicResource>(result.Clinic);
+            var clinicResource = _mapper.Map<Clinic, ClinicResource>(result.Resource);
             return Ok(clinicResource);    
         }
     }

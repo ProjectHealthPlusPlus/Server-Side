@@ -11,12 +11,14 @@ namespace HealthPlusPlus_AW.Services
     public class DiagnosticService : IDiagnosticService
     {
         private readonly IDiagnosticRepository _diagnosticRepository;
+        private readonly ISpecialtyRepository _specialtyRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public DiagnosticService(IDiagnosticRepository diagnosticRepository, IUnitOfWork unitOfWork)
+        public DiagnosticService(IDiagnosticRepository diagnosticRepository, IUnitOfWork unitOfWork, ISpecialtyRepository specialtyRepository)
         {
             _diagnosticRepository = diagnosticRepository;
             _unitOfWork = unitOfWork;
+            _specialtyRepository = specialtyRepository;
         }
 
         public async Task<IEnumerable<Diagnostic>> ListAsync()
@@ -24,22 +26,37 @@ namespace HealthPlusPlus_AW.Services
             return await _diagnosticRepository.ListAsync();
         }
 
-        public async Task<SaveDiagnosticResponse> SaveAsync(Diagnostic diagnostic)
+        public async Task<IEnumerable<Diagnostic>> ListBySpecialtyIdAsync(int specialtyId)
         {
+            return await _diagnosticRepository.FindBySpecialtyId(specialtyId);
+        }
+
+        public async Task<DiagnosticResponse> SaveAsync(Diagnostic diagnostic)
+        {
+            var existingCategory = await _diagnosticRepository.FindIdAsync(diagnostic.SpecialtyId);
+
+            if (existingCategory == null)
+                return new DiagnosticResponse("Invalid Category.");
+
+            var existingProductWithName = await _diagnosticRepository.FindByNameAsync(diagnostic.Description);
+
+            if (existingProductWithName != null)
+                return new DiagnosticResponse("Diagnostic Description already exits.");
+            
             try
             {
                 await _diagnosticRepository.AddAsync(diagnostic);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveDiagnosticResponse(diagnostic);
+                return new DiagnosticResponse(diagnostic);
             }
             catch (Exception e)
             {
-                return new SaveDiagnosticResponse($"An error occurred while saving: {e.Message}");
+                return new DiagnosticResponse($"An error occurred while saving: {e.Message}");
             }
         }
 
-        public async Task<SaveDiagnosticResponse> FindIdAsync(int id)
+        public async Task<DiagnosticResponse> FindIdAsync(int id)
         {
             var existingCategory = await _diagnosticRepository.FindIdAsync(id);
             try
@@ -47,36 +64,41 @@ namespace HealthPlusPlus_AW.Services
                 _diagnosticRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveDiagnosticResponse(existingCategory);
+                return new DiagnosticResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SaveDiagnosticResponse($"An error occurred while updating the category: {e.Message}");
+                return new DiagnosticResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 
-        public async Task<SaveDiagnosticResponse> UpdateAsync(int id, Diagnostic diagnostic)
+        public async Task<DiagnosticResponse> UpdateAsync(int id, Diagnostic diagnostic)
         {
-            var existingCategory = await _diagnosticRepository.FindIdAsync(id);
+            var existingDiagnostic = await _diagnosticRepository.FindIdAsync(id);
 
-            if (existingCategory == null)
-                return new SaveDiagnosticResponse("Category no found.");
+            if (existingDiagnostic == null)
+                return new DiagnosticResponse("Category no found.");
             
-            existingCategory.PublishDate = diagnostic.PublishDate;
-            existingCategory.Description = diagnostic.Description;
+            var existingSpecialty = await _specialtyRepository.FindIdAsync(id);
+
+            if (existingSpecialty == null)
+                return new DiagnosticResponse("Diagnostic no found.");
             
-            existingCategory.Specialty = diagnostic.Specialty;
+            existingDiagnostic.PublishDate = diagnostic.PublishDate;
+            existingDiagnostic.Description = diagnostic.Description;
+            
+            existingDiagnostic.SpecialtyId = diagnostic.SpecialtyId;
 
             try
             {
-                _diagnosticRepository.Update(existingCategory);
+                _diagnosticRepository.Update(existingDiagnostic);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveDiagnosticResponse(existingCategory);
+                return new DiagnosticResponse(existingDiagnostic);
             }
             catch (Exception e)
             {
-                return new SaveDiagnosticResponse($"An error occurred while updating the category: {e.Message}");
+                return new DiagnosticResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 

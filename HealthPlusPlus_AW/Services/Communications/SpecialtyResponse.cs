@@ -2,17 +2,14 @@
 
 namespace HealthPlusPlus_AW.Services.Communications
 {
-    public class SpecialtyResponse : BaseResponse
+    public class SpecialtyResponse : BaseResponse<Specialty>
     {
-        public Specialty Specialty { get; private set; }
-
-        public SpecialtyResponse(bool success, string message, Specialty specialty) : base(success, message)
+        public SpecialtyResponse(string message) : base(message)
         {
-            Specialty = specialty;
         }
 
-        public SpecialtyResponse(Specialty specialty) : this(true, string.Empty, specialty){}
-        
-        public SpecialtyResponse(string message) : this(false, message, null){}
+        public SpecialtyResponse(Specialty specialty) : base(specialty)
+        {
+        }
     }
 }

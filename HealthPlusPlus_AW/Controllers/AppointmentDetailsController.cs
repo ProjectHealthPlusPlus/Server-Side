@@ -35,10 +35,17 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _appointmentDetailsService.FindIdAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var appointmentDetailsResource = _mapper.Map<AppointmentDetails, AppointmentDetailsResource>(result.AppointmentDetails);
+            var appointmentDetailsResource = _mapper.Map<AppointmentDetails, AppointmentDetailsResource>(result.Resource);
             return Ok(appointmentDetailsResource);    
         }
 
+        [HttpGet("/appointmentDetails/diagnostic/{id}")]
+        public async Task<IEnumerable<AppointmentDetailsResource>> GetByDiagnosticIdAsync(int id)
+        {
+            var appointmentDetails = await _appointmentDetailsService.ListByDiagnosticIdAsync(id);
+            var resources = _mapper.Map<IEnumerable<AppointmentDetails>, IEnumerable<AppointmentDetailsResource>>(appointmentDetails);
+            return resources; 
+        }
         
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveAppointmentDetailsResource resource)
@@ -51,7 +58,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var appointmentDetailsResource = _mapper.Map<AppointmentDetails, AppointmentDetailsResource>(result.AppointmentDetails);
+            var appointmentDetailsResource = _mapper.Map<AppointmentDetails, AppointmentDetailsResource>(result.Resource);
             return Ok(appointmentDetailsResource);
         }
         
@@ -66,7 +73,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             
-            var appointmentResource = _mapper.Map<AppointmentDetails, AppointmentResource>(result.AppointmentDetails);
+            var appointmentResource = _mapper.Map<AppointmentDetails, AppointmentResource>(result.Resource);
             return Ok(appointmentResource);
         }
         
@@ -75,7 +82,7 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _appointmentDetailsService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var appointmentDetailsResource = _mapper.Map<AppointmentDetails, AppointmentDetailsResource>(result.AppointmentDetails);
+            var appointmentDetailsResource = _mapper.Map<AppointmentDetails, AppointmentDetailsResource>(result.Resource);
             return Ok(appointmentDetailsResource); 
         }
     }

@@ -9,6 +9,8 @@ namespace HealthPlusPlus_AW.Domain.Repositories
         Task<IEnumerable<MedicalHistory>> ListAsync();
         Task AddAsync(MedicalHistory medicalHistory);
         Task<MedicalHistory> FindIdAsync(int id);
+        Task<IEnumerable<MedicalHistory>> FindByPatientId(int patientId);
+        Task<IEnumerable<MedicalHistory>> FindByClinicId(int clinicId);
         void Update(MedicalHistory medicalHistory);
         void Remove(MedicalHistory medicalHistory);
     }

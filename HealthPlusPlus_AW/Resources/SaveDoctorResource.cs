@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HealthPlusPlus_AW.Resources
 {
-    public class SaveDoctorResource : UserResource
+    public class SaveDoctorResource : SaveUserResource
     {
-        public IList<SpecialtyResource> Specialties { get; set; } = new List<SpecialtyResource>();
-        public IList<ClinicResource> Clinics { get; set; } = new List<ClinicResource>();
+        [Required]
+        public int SpecialtyId { get; set; }  
+        
+        [Required]
+        public int ClinicId { get; set; }  
     }
 }

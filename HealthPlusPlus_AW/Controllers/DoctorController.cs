@@ -35,8 +35,24 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _doctorService.FindIdAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var doctorResource = _mapper.Map<Doctor, DoctorResource>(result.Doctor);
+            var doctorResource = _mapper.Map<Doctor, DoctorResource>(result.Resource);
             return Ok(doctorResource);    
+        }
+        
+        [HttpGet("/doctor/specialty/{id}")]
+        public async Task<IEnumerable<DoctorResource>> GetDoctorBySpecialtyIdAsync(int id)
+        {
+            var doctors = await _doctorService.ListBySpecialtyIdAsync(id);
+            var resources = _mapper.Map<IEnumerable<Doctor>, IEnumerable<DoctorResource>>(doctors);
+            return resources;
+        }
+        
+        [HttpGet("/doctor/clinic/{id}")]
+        public async Task<IEnumerable<DoctorResource>> GetDoctorByClinicIdAsync(int id)
+        {
+            var doctors = await _doctorService.ListByClinicIdAsync(id);
+            var resources = _mapper.Map<IEnumerable<Doctor>, IEnumerable<DoctorResource>>(doctors);
+            return resources;
         }
         
         [HttpPost]
@@ -50,7 +66,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Doctor, DoctorResource>(result.Doctor);
+            var categoryResource = _mapper.Map<Doctor, DoctorResource>(result.Resource);
             return Ok(categoryResource);
         }
         
@@ -65,7 +81,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             
-            var categoryResource = _mapper.Map<Doctor, DoctorResource>(result.Doctor);
+            var categoryResource = _mapper.Map<Doctor, DoctorResource>(result.Resource);
             return Ok(categoryResource);
         }
         
@@ -74,7 +90,7 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _doctorService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var doctorResource = _mapper.Map<Doctor, DoctorResource>(result.Doctor);
+            var doctorResource = _mapper.Map<Doctor, DoctorResource>(result.Resource);
             return Ok(doctorResource);    
         }
     }

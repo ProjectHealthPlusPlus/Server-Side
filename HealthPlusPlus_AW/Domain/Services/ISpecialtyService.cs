@@ -9,9 +9,9 @@ namespace HealthPlusPlus_AW.Domain.Services
     public interface ISpecialtyService
     {
         Task<IEnumerable<Specialty>> ListAsync();
-        Task<SaveSpecialtyResponse> SaveAsync(Specialty specialty);
-        Task<SaveSpecialtyResponse> FindIdAsync(int id);
-        Task<SaveSpecialtyResponse> UpdateAsync(int id, Specialty specialty);
+        Task<SpecialtyResponse> SaveAsync(Specialty specialty);
+        Task<SpecialtyResponse> FindIdAsync(int id);
+        Task<SpecialtyResponse> UpdateAsync(int id, Specialty specialty);
         Task<SpecialtyResponse> DeleteAsync(int id);
     }
 }

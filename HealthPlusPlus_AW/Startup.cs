@@ -57,8 +57,9 @@ namespace HealthPlusPlus_AW
             services.AddAutoMapper(typeof(Startup));
             
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryService, CategoryService>();
-            
+            services.AddScoped<IProductService, ProductService>();
             
             services.AddScoped<IAppointmentDetailsRepository, AppointmentDetailsRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();

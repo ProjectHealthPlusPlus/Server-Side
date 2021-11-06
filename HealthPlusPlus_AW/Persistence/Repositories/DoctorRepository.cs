@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HealthPlusPlus_AW.Domain.Models;
 using HealthPlusPlus_AW.Domain.Repositories;
@@ -27,6 +28,22 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
         public async Task<Doctor> FindIdAsync(int id)
         {
             return await _context.Doctors.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Doctor>> FindBySpecialtyId(int specialtyId)
+        {
+            return await _context.Doctors
+                .Where(p => p.SpecialtyId == specialtyId)
+                .Include(p => p.Specialty)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Doctor>> FindByClinicId(int clinicId)
+        {
+            return await _context.Doctors
+                .Where(p => p.ClinicId == clinicId)
+                .Include(p => p.Clinic)
+                .ToListAsync();
         }
 
         public void Update(Doctor doctor)

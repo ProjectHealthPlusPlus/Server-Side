@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
 namespace HealthPlusPlus_AW.Domain.Models
 {
     public class Category

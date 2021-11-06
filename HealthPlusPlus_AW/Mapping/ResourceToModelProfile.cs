@@ -9,15 +9,23 @@ namespace HealthPlusPlus_AW.Mapping
         public ResourceToModelProfile()
         {
             CreateMap<SaveCategoryResource, Category>();
+            CreateMap<SaveProductResource, Product>()
+                .ForMember(target =>
+                        target.UnitOfMeasurement,
+                    options =>
+                        options.MapFrom(source =>
+                            (EUnitOfMeasurement)source.UnitOfMeasurement));
+
+            CreateMap<SaveAppointmentDetailsResource, AppointmentDetails>();
+            CreateMap<SaveAppointmentResource, Appointment>();
+            CreateMap<SaveClinicLocationResource, ClinicLocation>();
+            CreateMap<SaveClinicResource, Clinic>();
+            CreateMap<SaveDiagnosticResource, Diagnostic>();
             
-            CreateMap<AppointmentDetailsResource, AppointmentDetails>();
-            CreateMap<AppointmentResource, Appointment>();
-            CreateMap<ClinicLocationResource, ClinicLocation>();
-            CreateMap<ClinicResource, Clinic>();
-            CreateMap<DiagnosticResource, Diagnostic>();
-            CreateMap<DoctorResource, Doctor>();
-            CreateMap<MedicalHistoryResource, MedicalHistory>();
-            CreateMap<PatientResource, Patient>();
+            CreateMap<SaveDoctorResource, Doctor>();
+            CreateMap<SaveMedicalHistoryResource, MedicalHistory>();
+            CreateMap<SavePatientResource, Patient>();
+            
             CreateMap<SaveSpecialtyResource, Specialty>();
             CreateMap<SaveUserResource, User>();
         }

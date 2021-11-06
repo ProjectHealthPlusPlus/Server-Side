@@ -24,22 +24,27 @@ namespace HealthPlusPlus_AW.Services
             return await _clinicRepository.ListAsync();
         }
 
-        public async Task<SaveClinicResponse> SaveAsync(Clinic clinic)
+        public async Task<IEnumerable<Clinic>> ListByClinicLocationIdAsync(int clinicLocationId)
+        {
+            return await _clinicRepository.FindByClinicLocationId(clinicLocationId);
+        }
+
+        public async Task<ClinicResponse> SaveAsync(Clinic clinic)
         {
             try
             {
                 await _clinicRepository.AddAsync(clinic);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveClinicResponse(clinic);
+                return new ClinicResponse(clinic);
             }
             catch (Exception e)
             {
-                return new SaveClinicResponse($"An error occurred while saving: {e.Message}");
+                return new ClinicResponse($"An error occurred while saving: {e.Message}");
             }
         }
 
-        public async Task<SaveClinicResponse> FindIdAsync(int id)
+        public async Task<ClinicResponse> FindIdAsync(int id)
         {
             var existingCategory = await _clinicRepository.FindIdAsync(id);
             try
@@ -47,20 +52,20 @@ namespace HealthPlusPlus_AW.Services
                 _clinicRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveClinicResponse(existingCategory);
+                return new ClinicResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SaveClinicResponse($"An error occurred while updating the category: {e.Message}");
+                return new ClinicResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 
-        public async Task<SaveClinicResponse> UpdateAsync(int id, Clinic clinic)
+        public async Task<ClinicResponse> UpdateAsync(int id, Clinic clinic)
         {
             var existingCategory = await _clinicRepository.FindIdAsync(id);
 
             if (existingCategory == null)
-                return new SaveClinicResponse("Category no found.");
+                return new ClinicResponse("Category no found.");
             
             existingCategory.Dni = clinic.Dni;
             existingCategory.Name = clinic.Name;
@@ -75,11 +80,11 @@ namespace HealthPlusPlus_AW.Services
                 _clinicRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveClinicResponse(existingCategory);
+                return new ClinicResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SaveClinicResponse($"An error occurred while updating the category: {e.Message}");
+                return new ClinicResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 

@@ -8,9 +8,12 @@ namespace HealthPlusPlus_AW.Domain.Services
     public interface IAppointmentService
     {
         Task<IEnumerable<Appointment>> ListAsync();
-        Task<SaveAppointmentResponse> SaveAsync(Appointment appointment);
-        Task<SaveAppointmentResponse> FindIdAsync(int id);
-        Task<SaveAppointmentResponse> UpdateAsync(int id, Appointment appointment);
+        Task<IEnumerable<Appointment>> ListByAppointmentDetailsIdAsync(int appointmentDetailsId);
+        Task<IEnumerable<Appointment>> ListByPatientIdAsync(int patientId);
+        Task<IEnumerable<Appointment>> ListByDoctorIdAsync(int doctorId);
+        Task<AppointmentResponse> SaveAsync(Appointment appointment);
+        Task<AppointmentResponse> FindIdAsync(int id);
+        Task<AppointmentResponse> UpdateAsync(int id, Appointment appointment);
         Task<AppointmentResponse> DeleteAsync(int id);
     }
 }
