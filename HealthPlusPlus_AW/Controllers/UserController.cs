@@ -35,7 +35,7 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _userService.FindIdAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var userResource = _mapper.Map<User, UserResource>(result.User);
+            var userResource = _mapper.Map<User, UserResource>(result.Resource);
             return Ok(userResource);    
         }
         
@@ -50,7 +50,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var userResource = _mapper.Map<User, UserResource>(result.User);
+            var userResource = _mapper.Map<User, UserResource>(result.Resource);
             return Ok(userResource);
         }
         
@@ -65,7 +65,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             
-            var categoryResource = _mapper.Map<User, UserResource>(result.User);
+            var categoryResource = _mapper.Map<User, UserResource>(result.Resource);
             return Ok(categoryResource);
         }
         
@@ -74,7 +74,7 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _userService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var userResource = _mapper.Map<User, UserResource>(result.User);
+            var userResource = _mapper.Map<User, UserResource>(result.Resource);
             return Ok(userResource);    
         }
     }

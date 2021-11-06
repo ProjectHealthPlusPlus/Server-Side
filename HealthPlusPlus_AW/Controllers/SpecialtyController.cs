@@ -36,7 +36,7 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _specialtyService.FindIdAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Specialty);
+            var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
             return Ok(specialtyResource);    
         }
         
@@ -51,7 +51,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Specialty);
+            var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
             return Ok(specialtyResource);
         }
         
@@ -66,7 +66,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             
-            var categoryResource = _mapper.Map<Specialty, SpecialtyResource>(result.Specialty);
+            var categoryResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
             return Ok(categoryResource);
         }
         
@@ -75,7 +75,7 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _specialtyService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Specialty);
+            var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
             return Ok(specialtyResource);    
         }
     }

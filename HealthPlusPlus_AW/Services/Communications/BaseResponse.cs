@@ -1,14 +1,20 @@
 ﻿namespace HealthPlusPlus_AW.Services.Communications
 {
-    public class BaseResponse
+    public class BaseResponse<T>
     {
         public bool Success { get; protected set; }
         public string Message { get; set; }
-
-        public BaseResponse(bool success, string message)
+        public T Resource {get; private set;}
+        public BaseResponse(string message)
         {
-            Success = success;
+            Success = false;
             Message = message;
+        }
+        
+        public BaseResponse(T resource)
+        {
+            Success = true;
+            Resource = resource;
         }
     }
 }

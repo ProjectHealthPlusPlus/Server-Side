@@ -29,32 +29,32 @@ namespace HealthPlusPlus_AW.Services
             return await _categoryRepository.ListAsync();
         }
 
-        public async Task<SaveCategoryResponse> SaveAsync(Category category)
+        public async Task<CategoryResponse> SaveAsync(Category category)
         {
             try
             {
                 await _categoryRepository.AddAsync(category);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveCategoryResponse(category);
+                return new CategoryResponse(category);
             }
             catch (Exception e)
             {
-                return new SaveCategoryResponse($"An error occurred while saving: {e.Message}");
+                return new CategoryResponse($"An error occurred while saving: {e.Message}");
             }
         }
 
-        public Task<SaveCategoryResponse> FindIdAsync(int id)
+        public Task<CategoryResponse> FindIdAsync(int id)
         {
              throw new NotImplementedException();
         }
 
-        public async Task<SaveCategoryResponse> UpdateAsync(int id, Category category)
+        public async Task<CategoryResponse> UpdateAsync(int id, Category category)
         {
             var existingCategory = await _categoryRepository.FindIdAsync(id);
 
             if (existingCategory == null)
-                return new SaveCategoryResponse("Category no found.");
+                return new CategoryResponse("Category no found.");
 
             existingCategory.Name = category.Name;
 
@@ -63,11 +63,11 @@ namespace HealthPlusPlus_AW.Services
                 _categoryRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveCategoryResponse(existingCategory);
+                return new CategoryResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SaveCategoryResponse($"An error occurred while updating the category: {e.Message}");
+                return new CategoryResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 

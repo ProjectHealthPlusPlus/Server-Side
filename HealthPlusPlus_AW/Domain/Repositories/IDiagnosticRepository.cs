@@ -9,6 +9,8 @@ namespace HealthPlusPlus_AW.Domain.Repositories
         Task<IEnumerable<Diagnostic>> ListAsync();
         Task AddAsync(Diagnostic diagnostic);
         Task<Diagnostic> FindIdAsync(int id);
+        Task<Diagnostic> FindByNameAsync(string description);
+        Task<IEnumerable<Diagnostic>> FindBySpecialtyId(int specialtyId);
         void Update(Diagnostic diagnostic);
         void Remove(Diagnostic diagnostic);
     }

@@ -1,15 +1,27 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HealthPlusPlus_AW.Resources
 {
     public class SaveAppointmentDetailsResource
     {
-        public int Id { get; set; }
+        [Required]
+        [MaxLength(50)]
         public DateTime UserStartAt { get; set; }
+        
+        [Required]
+        [MaxLength(50)]
         public DateTime DoctorStartAt { get; set; }
+        
+        [Required]
+        [MaxLength(50)]
         public DateTime UserEndAt { get; set; }
+        
+        [Required]
+        [MaxLength(50)]
         public DateTime DoctorEndAt { get; set; }
         
-        public DiagnosticResource DiagnosticResource { get; set; }
+        [Required]
+        public int DiagnosticId { get; set; }
     }
 }

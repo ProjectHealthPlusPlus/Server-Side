@@ -1,6 +1,6 @@
 ﻿namespace HealthPlusPlus_AW.Domain.Models
 {
-    public class User
+    public abstract class User
     {
         public int Id { get; set; } 
         public string Dni { get; set; } 

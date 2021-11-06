@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HealthPlusPlus_AW.Resources
 {
@@ -7,8 +8,12 @@ namespace HealthPlusPlus_AW.Resources
         public int Id { get; set; }
         public DateTime StartAt { get; set; }
         
-        public UserResource UserResource { get; set; }
-        public DoctorResource DoctorResource { get; set; }
-        public AppointmentDetailsResource AppointmentDetailsResource { get; set; }
+        [Required]
+        public int UserId { get; set; }  
+        [Required]
+        public int DoctorId { get; set; }  
+        [Required]
+        public int AppointmentDetailsId { get; set; }  
+
     }
 }

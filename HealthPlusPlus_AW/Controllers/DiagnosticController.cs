@@ -35,8 +35,16 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _diagnosticService.FindIdAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var diagnosticResource = _mapper.Map<Diagnostic, DiagnosticResource>(result.Diagnostic);
+            var diagnosticResource = _mapper.Map<Diagnostic, DiagnosticResource>(result.Resource);
             return Ok(diagnosticResource);    
+        }
+        
+        [HttpGet("/diagnostic/specialty/{id}")]
+        public async Task<IEnumerable<DiagnosticResource>> GetBySpecialtyByIdAsync(int id)
+        {
+            var diagnostics = await _diagnosticService.ListBySpecialtyIdAsync(id);
+            var resources = _mapper.Map<IEnumerable<Diagnostic>, IEnumerable<DiagnosticResource>>(diagnostics);
+            return resources;
         }
         
         [HttpPost]
@@ -50,7 +58,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Diagnostic, DiagnosticResource>(result.Diagnostic);
+            var categoryResource = _mapper.Map<Diagnostic, DiagnosticResource>(result.Resource);
             return Ok(categoryResource);
         }
         
@@ -65,7 +73,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             
-            var diagnosticResource = _mapper.Map<Diagnostic, DiagnosticResource>(result.Diagnostic);
+            var diagnosticResource = _mapper.Map<Diagnostic, DiagnosticResource>(result.Resource);
             return Ok(diagnosticResource);
         }
         
@@ -74,7 +82,7 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _diagnosticService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var diagnosticResource = _mapper.Map<Diagnostic, DiagnosticResource>(result.Diagnostic);
+            var diagnosticResource = _mapper.Map<Diagnostic, DiagnosticResource>(result.Resource);
             return Ok(diagnosticResource);    
         }
     }

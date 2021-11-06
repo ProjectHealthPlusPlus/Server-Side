@@ -3,16 +3,14 @@ using HealthPlusPlus_AW.Domain.Models;
 
 namespace HealthPlusPlus_AW.Services.Communications
 {
-    public class CategoryResponse : BaseResponse
+    public class CategoryResponse : BaseResponse<Category>
     {
-        public Category Category { get; set; }
-        
-        public CategoryResponse(bool success, string message, Category category) : base(success, message)
+        public CategoryResponse(string message) : base(message)
         {
-            Category = category;
         }
-        
-        public CategoryResponse(Category category) : this(true,string.Empty,category){}
-        public CategoryResponse(string message) : this(false,message,null){}
+
+        public CategoryResponse(Category category) : base(category)
+        {   
+        }
     }
 }

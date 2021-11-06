@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using HealthPlusPlus_AW.Domain.Models;
 
 namespace HealthPlusPlus_AW.Resources
 {
     public class DoctorResource : UserResource
     {
-        public IList<SpecialtyResource> Specialties { get; set; } = new List<SpecialtyResource>();
-        public IList<ClinicResource> Clinics { get; set; } = new List<ClinicResource>();
+        public SpecialtyResource Specialty { get; set; }
+        public ClinicResource Clinic { get; set; }
     }
 }

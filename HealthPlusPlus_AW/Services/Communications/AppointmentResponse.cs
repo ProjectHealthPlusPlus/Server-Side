@@ -2,17 +2,14 @@
 
 namespace HealthPlusPlus_AW.Services.Communications
 {
-    public class AppointmentResponse : BaseResponse
+    public class AppointmentResponse : BaseResponse<Appointment>
     {
-        public Appointment Appointment { get; private set; }
-
-        public AppointmentResponse(bool success, string message, Appointment appointment) : base(success, message)
+        public AppointmentResponse(string message) : base(message)
         {
-            Appointment = appointment;
         }
 
-        public AppointmentResponse(Appointment appointment) : this(true, string.Empty, appointment){}
-        
-        public AppointmentResponse(string message) : this(false, message, null){}
+        public AppointmentResponse(Appointment appointment) : base(appointment)
+        {
+        }
     }
 }
