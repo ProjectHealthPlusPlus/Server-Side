@@ -8,6 +8,6 @@ namespace HealthPlusPlus_AW.Resources
         public DateTime PublishDate { get; set; }
         public string Description { get; set; }
         
-        public SpecialtyResource SpecialtyResource { get; set; }
+        public SpecialtyResource Specialty { get; set; }
     }
 }

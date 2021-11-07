@@ -10,6 +10,6 @@ namespace HealthPlusPlus_AW.Resources
         public DateTime UserEndAt { get; set; }
         public DateTime DoctorEndAt { get; set; }
         
-        public DiagnosticResource DiagnosticResource { get; set; }
+        public DiagnosticResource Diagnostic { get; set; }
     }
 }
