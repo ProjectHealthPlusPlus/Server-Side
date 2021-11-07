@@ -42,7 +42,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Category, CategoryResource>(result.Category);
+            var categoryResource = _mapper.Map<Category, CategoryResource>(result.Resource);
             return Ok(categoryResource);
         }
 
@@ -57,7 +57,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             
-            var categoryResource = _mapper.Map<Category, CategoryResource>(result.Category);
+            var categoryResource = _mapper.Map<Category, CategoryResource>(result.Resource);
             return Ok(categoryResource);
         }
         
@@ -66,7 +66,7 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _categoryService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var categoryResource = _mapper.Map<Category, CategoryResource>(result.Category);
+            var categoryResource = _mapper.Map<Category, CategoryResource>(result.Resource);
             return Ok(categoryResource);    
         }
     }

@@ -11,12 +11,14 @@ namespace HealthPlusPlus_AW.Services
     public class AppointmentDetailsService : IAppointmentDetailsService
     {
         private readonly IAppointmentDetailsRepository _appointmentDetailsRepository;
+        private readonly IDiagnosticRepository _diagnosticRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AppointmentDetailsService(IAppointmentDetailsRepository appointmentDetailsRepository, IUnitOfWork unitOfWork)
+        public AppointmentDetailsService(IAppointmentDetailsRepository appointmentDetailsRepository, IUnitOfWork unitOfWork, IDiagnosticRepository diagnosticRepository)
         {
             _appointmentDetailsRepository = appointmentDetailsRepository;
             _unitOfWork = unitOfWork;
+            _diagnosticRepository = diagnosticRepository;
         }
 
         public async Task<IEnumerable<AppointmentDetails>> ListAsync()
@@ -24,32 +26,48 @@ namespace HealthPlusPlus_AW.Services
             return await _appointmentDetailsRepository.ListAsync();
         }
 
-        public async Task<SaveAppointmentDetailsResponse> SaveAsync(AppointmentDetails appointmentDetails)
+        public async Task<IEnumerable<AppointmentDetails>> ListByDiagnosticIdAsync(int diagnosticId)
+        {
+            return await _appointmentDetailsRepository.FindByDiagnosticId(diagnosticId);
+        }
+
+        public async Task<AppointmentDetailsResponse> SaveAsync(AppointmentDetails appointmentDetails)
         {
             try
             {
                 await _appointmentDetailsRepository.AddAsync(appointmentDetails);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveAppointmentDetailsResponse(appointmentDetails);
+                return new AppointmentDetailsResponse(appointmentDetails);
             }
             catch (Exception e)
             {
-                return new SaveAppointmentDetailsResponse($"An error occurred while saving: {e.Message}");
+                return new AppointmentDetailsResponse($"An error occurred while saving: {e.Message}");
             }
         }
 
-        public Task<SaveAppointmentDetailsResponse> FindIdAsync(int id)
+        public async Task<AppointmentDetailsResponse> FindIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var existingCategory = await _appointmentDetailsRepository.FindIdAsync(id);
+            try
+            {
+                _appointmentDetailsRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new AppointmentDetailsResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new AppointmentDetailsResponse($"An error occurred while updating the category: {e.Message}");
+            }
         }
 
-        public async Task<SaveAppointmentDetailsResponse> UpdateAsync(int id, AppointmentDetails appointmentDetails)
+        public async Task<AppointmentDetailsResponse> UpdateAsync(int id, AppointmentDetails appointmentDetails)
         {
             var existingCategory = await _appointmentDetailsRepository.FindIdAsync(id);
 
             if (existingCategory == null)
-                return new SaveAppointmentDetailsResponse("Category no found.");
+                return new AppointmentDetailsResponse("Category no found.");
             
             existingCategory.UserStartAt = appointmentDetails.UserStartAt;
             existingCategory.DoctorStartAt = appointmentDetails.DoctorStartAt;
@@ -62,11 +80,11 @@ namespace HealthPlusPlus_AW.Services
                 _appointmentDetailsRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveAppointmentDetailsResponse(existingCategory);
+                return new AppointmentDetailsResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SaveAppointmentDetailsResponse($"An error occurred while updating the category: {e.Message}");
+                return new AppointmentDetailsResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 

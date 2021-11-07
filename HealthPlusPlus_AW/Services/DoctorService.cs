@@ -24,51 +24,69 @@ namespace HealthPlusPlus_AW.Services
             return await _doctorRepository.ListAsync();
         }
 
-        public async Task<SaveDoctorResponse> SaveAsync(Doctor doctor)
+        public async Task<IEnumerable<Doctor>> ListBySpecialtyIdAsync(int specialtyId)
+        {
+            return await _doctorRepository.FindBySpecialtyId(specialtyId);
+        }
+
+        public async Task<IEnumerable<Doctor>> ListByClinicIdAsync(int clinicId)
+        {
+            return await _doctorRepository.FindByClinicId(clinicId);
+        }
+
+        public async Task<DoctorResponse> SaveAsync(Doctor doctor)
         {
             try
             {
                 await _doctorRepository.AddAsync(doctor);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveDoctorResponse(doctor);
+                return new DoctorResponse(doctor);
             }
             catch (Exception e)
             {
-                return new SaveDoctorResponse($"An error occurred while saving: {e.Message}");
+                return new DoctorResponse($"An error occurred while saving: {e.Message}");
             }
         }
 
-        public Task<SaveDoctorResponse> FindIdAsync(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<SaveDoctorResponse> UpdateAsync(int id, Doctor doctor)
+        public async Task<DoctorResponse> FindIdAsync(int id)
         {
             var existingCategory = await _doctorRepository.FindIdAsync(id);
-
-            if (existingCategory == null)
-                return new SaveDoctorResponse("Category no found.");
-            
-            existingCategory.Dni = doctor.Dni;
-            existingCategory.Name = doctor.Name;
-            existingCategory.Lastname = doctor.Lastname;
-            existingCategory.Age = doctor.Age;
-            
-            existingCategory.Specialties = doctor.Specialties;
-            existingCategory.Clinics = doctor.Clinics;
-            
             try
             {
                 _doctorRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveDoctorResponse(existingCategory);
+                return new DoctorResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SaveDoctorResponse($"An error occurred while updating the category: {e.Message}");
+                return new DoctorResponse($"An error occurred while updating the category: {e.Message}");
+            }
+        }
+
+        public async Task<DoctorResponse> UpdateAsync(int id, Doctor doctor)
+        {
+            var existingCategory = await _doctorRepository.FindIdAsync(id);
+
+            if (existingCategory == null)
+                return new DoctorResponse("Category no found.");
+            
+            existingCategory.Dni = doctor.Dni;
+            existingCategory.Name = doctor.Name;
+            existingCategory.Lastname = doctor.Lastname;
+            existingCategory.Age = doctor.Age;
+
+            try
+            {
+                _doctorRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new DoctorResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new DoctorResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 

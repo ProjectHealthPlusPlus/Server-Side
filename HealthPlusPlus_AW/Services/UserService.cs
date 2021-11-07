@@ -24,32 +24,43 @@ namespace HealthPlusPlus_AW.Services
             return await _userRepository.ListAsync();
         }
 
-        public async Task<SaveUserResponse> SaveAsync(User user)
+        public async Task<UserResponse> SaveAsync(User user)
         {
             try
             {
                 await _userRepository.AddAsync(user);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveUserResponse(user);
+                return new UserResponse(user);
             }
             catch (Exception e)
             {
-                return new SaveUserResponse($"An error ocurred while saving: {e.Message}");
+                return new UserResponse($"An error ocurred while saving: {e.Message}");
             }
         }
 
-        public Task<SaveUserResponse> FindIdAsync(int id)
+        public async Task<UserResponse> FindIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var existingCategory = await _userRepository.FindIdAsync(id);
+            try
+            {
+                _userRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new UserResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new UserResponse($"An error occurred while updating the category: {e.Message}");
+            }
         }
 
-        public async Task<SaveUserResponse> UpdateAsync(int id, User user)
+        public async Task<UserResponse> UpdateAsync(int id, User user)
         {
             var existingCategory = await _userRepository.FindIdAsync(id);
 
             if (existingCategory == null)
-                return new SaveUserResponse("Category no found.");
+                return new UserResponse("Category no found.");
 
             existingCategory.Dni = user.Dni;
             existingCategory.Name = user.Name;
@@ -61,11 +72,11 @@ namespace HealthPlusPlus_AW.Services
                 _userRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveUserResponse(existingCategory);
+                return new UserResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SaveUserResponse($"An error occurred while updating the category: {e.Message}");
+                return new UserResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 

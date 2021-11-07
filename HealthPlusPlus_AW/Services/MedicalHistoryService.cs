@@ -24,32 +24,54 @@ namespace HealthPlusPlus_AW.Services
             return await _medicalHistoryRepository.ListAsync();
         }
 
-        public async Task<SaveMedicalHistoryResponse> SaveAsync(MedicalHistory medicalHistory)
+        public async Task<IEnumerable<MedicalHistory>> ListByPatientIdAsync(int patientId)
+        {
+            return await _medicalHistoryRepository.FindByPatientId(patientId);
+        }
+
+        public async Task<IEnumerable<MedicalHistory>> ListByClinicIdAsync(int clinicId)
+        {
+            return await _medicalHistoryRepository.FindByPatientId(clinicId);
+        }
+
+        public async Task<MedicalHistoryResponse> SaveAsync(MedicalHistory medicalHistory)
         {
             try
             {
                 await _medicalHistoryRepository.AddAsync(medicalHistory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveMedicalHistoryResponse(medicalHistory);
+                return new MedicalHistoryResponse(medicalHistory);
             }
             catch (Exception e)
             {
-                return new SaveMedicalHistoryResponse($"An error occurred while saving: {e.Message}");
+                return new MedicalHistoryResponse($"An error occurred while saving: {e.Message}");
             }
         }
 
-        public Task<SaveMedicalHistoryResponse> FindIdAsync(int id)
+        public async Task<MedicalHistoryResponse> FindIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var existingCategory = await _medicalHistoryRepository.FindIdAsync(id);
+            try
+            {
+                _medicalHistoryRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new MedicalHistoryResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new MedicalHistoryResponse($"An error occurred while updating the category: {e.Message}");
+            }
+
         }
 
-        public async Task<SaveMedicalHistoryResponse> UpdateAsync(int id, MedicalHistory medicalHistory)
+        public async Task<MedicalHistoryResponse> UpdateAsync(int id, MedicalHistory medicalHistory)
         {
             var existingCategory = await _medicalHistoryRepository.FindIdAsync(id);
 
             if (existingCategory == null)
-                return new SaveMedicalHistoryResponse("Category no found.");
+                return new MedicalHistoryResponse("Category no found.");
             
             existingCategory.Patient = medicalHistory.Patient;
             existingCategory.Clinic = medicalHistory.Clinic;
@@ -60,11 +82,11 @@ namespace HealthPlusPlus_AW.Services
                 _medicalHistoryRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveMedicalHistoryResponse(existingCategory);
+                return new MedicalHistoryResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SaveMedicalHistoryResponse($"An error occurred while updating the category: {e.Message}");
+                return new MedicalHistoryResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 

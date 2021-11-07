@@ -24,36 +24,60 @@ namespace HealthPlusPlus_AW.Services
             return await _appointmentRepository.ListAsync();
         }
 
-        public async Task<SaveAppointmentResponse> SaveAsync(Appointment appointment)
+        public async Task<IEnumerable<Appointment>> ListByAppointmentDetailsIdAsync(int appointmentDetailsId)
+        {
+            return await _appointmentRepository.FindByAppointmentDetailsIdAsync(appointmentDetailsId);
+        }
+
+        public async Task<IEnumerable<Appointment>> ListByPatientIdAsync(int patientId)
+        {
+            return await _appointmentRepository.FindByPatientIdAsync(patientId);
+        }
+
+        public async Task<IEnumerable<Appointment>> ListByDoctorIdAsync(int doctorId)
+        {
+            return await _appointmentRepository.FindByDoctorIdAsync(doctorId);
+        }
+
+        public async Task<AppointmentResponse> SaveAsync(Appointment appointment)
         {
             try
             {
                 await _appointmentRepository.AddAsync(appointment);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveAppointmentResponse(appointment);
+                return new AppointmentResponse(appointment);
             }
             catch (Exception e)
             {
-                return new SaveAppointmentResponse($"An error occurred while saving: {e.Message}");
+                return new AppointmentResponse($"An error occurred while saving: {e.Message}");
             }
         }
 
-        public Task<SaveAppointmentResponse> FindIdAsync(int id)
+        public async Task<AppointmentResponse> FindIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var existingCategory = await _appointmentRepository.FindIdAsync(id);
+            try
+            {
+                _appointmentRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new AppointmentResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new AppointmentResponse($"An error occurred while updating the category: {e.Message}");
+            }
         }
 
-        public async Task<SaveAppointmentResponse> UpdateAsync(int id, Appointment appointment)
+        public async Task<AppointmentResponse> UpdateAsync(int id, Appointment appointment)
         {
             var existingCategory = await _appointmentRepository.FindIdAsync(id);
 
             if (existingCategory == null)
-                return new SaveAppointmentResponse("Category no found.");
+                return new AppointmentResponse("Category no found.");
             
             existingCategory.StartAt = appointment.StartAt;
-            existingCategory.User = appointment.User;
-            existingCategory.Doctor = appointment.Doctor;
             existingCategory.AppointmentDetails = appointment.AppointmentDetails;
 
             try
@@ -61,11 +85,11 @@ namespace HealthPlusPlus_AW.Services
                 _appointmentRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveAppointmentResponse(existingCategory);
+                return new AppointmentResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SaveAppointmentResponse($"An error occurred while updating the category: {e.Message}");
+                return new AppointmentResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 

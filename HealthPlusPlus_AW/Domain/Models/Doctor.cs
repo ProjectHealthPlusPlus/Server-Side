@@ -4,7 +4,12 @@ namespace HealthPlusPlus_AW.Domain.Models
 {
     public class Doctor : User
     {
-        public IList<Specialty> Specialties { get; set; } = new List<Specialty>();
-        public IList<Clinic> Clinics { get; set; } = new List<Clinic>();
+        //RelationShips
+        public int SpecialtyId;
+        public Specialty Specialty;
+        public int ClinicId;
+        public Clinic Clinic;
+        
+        public IList<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }

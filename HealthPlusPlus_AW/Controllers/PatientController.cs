@@ -29,6 +29,16 @@ namespace HealthPlusPlus_AW.Controllers
             return resources;
         }
         
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var result = await _patientService.FindIdAsync(id);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var patientResource = _mapper.Map<Patient, PatientResource>(result.Resource);
+            return Ok(patientResource);    
+        }
+        
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SavePatientResource resource)
         {
@@ -40,7 +50,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var patientResource = _mapper.Map<Patient, PatientResource>(result.Patient);
+            var patientResource = _mapper.Map<Patient, PatientResource>(result.Resource);
             return Ok(patientResource);
         }
         
@@ -55,7 +65,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             
-            var categoryResource = _mapper.Map<Patient, PatientResource>(result.Patient);
+            var categoryResource = _mapper.Map<Patient, PatientResource>(result.Resource);
             return Ok(categoryResource);
         }
         
@@ -64,8 +74,8 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _patientService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var categoryResource = _mapper.Map<Patient, PatientResource>(result.Patient);
-            return Ok(categoryResource);    
+            var patientResource = _mapper.Map<Patient, PatientResource>(result.Resource);
+            return Ok(patientResource);    
         }
     }
 }

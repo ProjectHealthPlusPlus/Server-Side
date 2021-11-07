@@ -2,17 +2,14 @@
 
 namespace HealthPlusPlus_AW.Services.Communications
 {
-    public class MedicalHistoryResponse : BaseResponse
+    public class MedicalHistoryResponse : BaseResponse<MedicalHistory>
     {
-        public MedicalHistory MedicalHistory { get; private set; }
-
-        public MedicalHistoryResponse(bool success, string message, MedicalHistory medicalHistory) : base(success, message)
+        public MedicalHistoryResponse(string message) : base(message)
         {
-            MedicalHistory = medicalHistory;
         }
 
-        public MedicalHistoryResponse(MedicalHistory medicalHistory) : this(true, string.Empty, medicalHistory){}
-        
-        public MedicalHistoryResponse(string message) : this(false, message, null){}
+        public MedicalHistoryResponse(MedicalHistory medicalHistory) : base(medicalHistory)
+        {
+        }
     }
 }

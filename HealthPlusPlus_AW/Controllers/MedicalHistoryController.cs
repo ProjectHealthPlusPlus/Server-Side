@@ -29,6 +29,32 @@ namespace HealthPlusPlus_AW.Controllers
             return resources;
         }
         
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var result = await _medicalHistoryService.FindIdAsync(id);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var medicalHistory = _mapper.Map<MedicalHistory, MedicalHistoryResource>(result.Resource);
+            return Ok(medicalHistory);    
+        }
+        
+        [HttpGet("/medicalHistory/patient/{id}")]
+        public async Task<IEnumerable<MedicalHistoryResource>> GetMedicalHistoryByPatientIdAsync(int id)
+        {
+            var medicalHistories = await _medicalHistoryService.ListByPatientIdAsync(id);
+            var resources = _mapper.Map<IEnumerable<MedicalHistory>, IEnumerable<MedicalHistoryResource>>(medicalHistories);
+            return resources;
+        }
+        
+        [HttpGet("/medicalHistory/clinic/{id}")]
+        public async Task<IEnumerable<MedicalHistoryResource>> GetMedicalHistoryByClinicIdAsync(int id)
+        {
+            var medicalHistories = await _medicalHistoryService.ListByClinicIdAsync(id);
+            var resources = _mapper.Map<IEnumerable<MedicalHistory>, IEnumerable<MedicalHistoryResource>>(medicalHistories);
+            return resources;
+        }
+        
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveMedicalHistoryResource resource)
         {
@@ -40,7 +66,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<MedicalHistory, MedicalHistoryResource>(result.MedicalHistory);
+            var categoryResource = _mapper.Map<MedicalHistory, MedicalHistoryResource>(result.Resource);
             return Ok(categoryResource);
         }
         
@@ -55,7 +81,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             
-            var medicalHistoryResource = _mapper.Map<MedicalHistory, MedicalHistoryResource>(result.MedicalHistory);
+            var medicalHistoryResource = _mapper.Map<MedicalHistory, MedicalHistoryResource>(result.Resource);
             return Ok(medicalHistoryResource);
         }
         
@@ -64,7 +90,7 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _medicalHistoryService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var medicalHistoryResource = _mapper.Map<MedicalHistory, MedicalHistoryResource>(result.MedicalHistory);
+            var medicalHistoryResource = _mapper.Map<MedicalHistory, MedicalHistoryResource>(result.Resource);
             return Ok(medicalHistoryResource); 
         }
     }

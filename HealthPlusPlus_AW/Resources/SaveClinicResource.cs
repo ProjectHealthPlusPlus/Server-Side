@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HealthPlusPlus_AW.Resources
 {
     public class SaveClinicResource : UserResource
     {
-        public ClinicLocationResource ClinicLocationResource { get; set; }
-        public IList<MedicalHistoryResource> MedicalHistories { get; set; } = new List<MedicalHistoryResource>();
+        [Required]
+        public int ClinicLocationId { get; set; }    
     }
 }

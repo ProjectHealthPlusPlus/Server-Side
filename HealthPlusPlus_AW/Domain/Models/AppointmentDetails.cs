@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HealthPlusPlus_AW.Domain.Models
 {
@@ -10,6 +11,9 @@ namespace HealthPlusPlus_AW.Domain.Models
         public DateTime UserEndAt { get; set; }
         public DateTime DoctorEndAt { get; set; }
         
+        //RelationShips
+        public int DiagnosticId { get; set; }
         public Diagnostic Diagnostic { get; set; }
+        public IList<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }

@@ -24,32 +24,43 @@ namespace HealthPlusPlus_AW.Services
             return await _specialtyRepository.ListAsync();
         }
 
-        public async Task<SaveSpecialtyResponse> SaveAsync(Specialty specialty)
+        public async Task<SpecialtyResponse> SaveAsync(Specialty specialty)
         {
             try
             {
                 await _specialtyRepository.AddAsync(specialty);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveSpecialtyResponse(specialty);
+                return new SpecialtyResponse(specialty);
             }
             catch (Exception e)
             {
-                return new SaveSpecialtyResponse($"An error ocurred while saving: {e.Message}");
+                return new SpecialtyResponse($"An error ocurred while saving: {e.Message}");
             }
         }
 
-        public Task<SaveSpecialtyResponse> FindIdAsync(int id)
+        public async Task<SpecialtyResponse> FindIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var existingCategory = await _specialtyRepository.FindIdAsync(id);
+            try
+            {
+                _specialtyRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new SpecialtyResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new SpecialtyResponse($"An error occurred while updating the category: {e.Message}");
+            }
         }
 
-        public async Task<SaveSpecialtyResponse> UpdateAsync(int id, Specialty specialty)
+        public async Task<SpecialtyResponse> UpdateAsync(int id, Specialty specialty)
         {
             var existingCategory = await _specialtyRepository.FindIdAsync(id);
 
             if (existingCategory == null)
-                return new SaveSpecialtyResponse("Category no found.");
+                return new SpecialtyResponse("Category no found.");
 
             existingCategory.Name = specialty.Name;
             existingCategory.Description = specialty.Description;
@@ -59,11 +70,11 @@ namespace HealthPlusPlus_AW.Services
                 _specialtyRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveSpecialtyResponse(existingCategory);
+                return new SpecialtyResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SaveSpecialtyResponse($"An error occurred while updating the category: {e.Message}");
+                return new SpecialtyResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 

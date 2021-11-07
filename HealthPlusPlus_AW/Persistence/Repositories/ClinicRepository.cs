@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HealthPlusPlus_AW.Domain.Models;
 using HealthPlusPlus_AW.Domain.Repositories;
-using HealthPlusPlus_AW.Domain.Services;
 using HealthPlusPlus_AW.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +27,14 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
         public async Task<Clinic> FindIdAsync(int id)
         {
             return await _context.Clinics.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Clinic>> FindByClinicLocationId(int clinicLocationId)
+        {
+            return await _context.Clinics
+                .Where(p => p.ClinicLocationId == clinicLocationId)
+                .Include(p => p.ClinicLocation)
+                .ToListAsync();
         }
 
         public void Update(Clinic clinic)

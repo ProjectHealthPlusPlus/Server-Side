@@ -30,6 +30,16 @@ namespace HealthPlusPlus_AW.Controllers
             return resources;
         }
         
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(int id)
+        {
+            var result = await _specialtyService.FindIdAsync(id);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
+            return Ok(specialtyResource);    
+        }
+        
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveSpecialtyResource resource)
         {
@@ -41,7 +51,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Specialty);
+            var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
             return Ok(specialtyResource);
         }
         
@@ -56,7 +66,7 @@ namespace HealthPlusPlus_AW.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
             
-            var categoryResource = _mapper.Map<Specialty, SpecialtyResource>(result.Specialty);
+            var categoryResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
             return Ok(categoryResource);
         }
         
@@ -65,8 +75,8 @@ namespace HealthPlusPlus_AW.Controllers
             var result = await _specialtyService.DeleteAsync(id);
             if (!result.Success)
                 return BadRequest(result.Message);
-            var categoryResource = _mapper.Map<Specialty, SpecialtyResource>(result.Specialty);
-            return Ok(categoryResource);    
+            var specialtyResource = _mapper.Map<Specialty, SpecialtyResource>(result.Resource);
+            return Ok(specialtyResource);    
         }
     }
 }

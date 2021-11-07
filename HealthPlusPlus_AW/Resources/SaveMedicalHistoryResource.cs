@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HealthPlusPlus_AW.Resources
 {
@@ -6,8 +7,9 @@ namespace HealthPlusPlus_AW.Resources
     {
         public int Id { get; set; }
         
-        public PatientResource PatientResource { get; set; }
-        public ClinicResource ClinicResource { get; set; }
-        public IList<DiagnosticResource> Diagnostics { get; set; } = new List<DiagnosticResource>();
+        [Required]
+        public int PatientId { get; set; }    
+        [Required]
+        public int ClinicId { get; set; }
     }
 }

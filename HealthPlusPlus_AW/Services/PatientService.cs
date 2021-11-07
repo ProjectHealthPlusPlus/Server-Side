@@ -24,32 +24,43 @@ namespace HealthPlusPlus_AW.Services
             return await _patientRepository.ListAsync();
         }
 
-        public async Task<SavePatientResponse> SaveAsync(Patient patient)
+        public async Task<PatientResponse> SaveAsync(Patient patient)
         {
             try
             {
                 await _patientRepository.AddAsync(patient);
                 await _unitOfWork.CompleteAsync();
 
-                return new SavePatientResponse(patient);
+                return new PatientResponse(patient);
             }
             catch (Exception e)
             {
-                return new SavePatientResponse($"An error occurred while saving: {e.Message}");
+                return new PatientResponse($"An error occurred while saving: {e.Message}");
             }
         }
 
-        public Task<SavePatientResponse> FindIdAsync(int id)
+        public async Task<PatientResponse> FindIdAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var existingCategory = await _patientRepository.FindIdAsync(id);
+            try
+            {
+                _patientRepository.Update(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new PatientResponse(existingCategory);
+            }
+            catch (Exception e)
+            {
+                return new PatientResponse($"An error occurred while updating the category: {e.Message}");
+            }
         }
 
-        public async Task<SavePatientResponse> UpdateAsync(int id, Patient patient)
+        public async Task<PatientResponse> UpdateAsync(int id, Patient patient)
         {
             var existingCategory = await _patientRepository.FindIdAsync(id);
 
             if (existingCategory == null)
-                return new SavePatientResponse("Category no found.");
+                return new PatientResponse("Category no found.");
             
             existingCategory.Dni = patient.Dni;
             existingCategory.Name = patient.Name;
@@ -64,11 +75,11 @@ namespace HealthPlusPlus_AW.Services
                 _patientRepository.Update(existingCategory);
                 await _unitOfWork.CompleteAsync();
 
-                return new SavePatientResponse(existingCategory);
+                return new PatientResponse(existingCategory);
             }
             catch (Exception e)
             {
-                return new SavePatientResponse($"An error occurred while updating the category: {e.Message}");
+                return new PatientResponse($"An error occurred while updating the category: {e.Message}");
             }
         }
 
