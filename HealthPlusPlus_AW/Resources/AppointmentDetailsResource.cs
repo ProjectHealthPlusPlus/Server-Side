@@ -17,6 +17,6 @@ namespace HealthPlusPlus_AW.Resources
         [SwaggerSchema("Appointment Details Doctor EndAt Time")]
         public DateTime DoctorEndAt { get; set; }
         
-        public DiagnosticResource DiagnosticResource { get; set; }
+        public DiagnosticResource Diagnostic { get; set; }
     }
 }

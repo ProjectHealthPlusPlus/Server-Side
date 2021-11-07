@@ -40,8 +40,8 @@ namespace Supermarket1.API.Test
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "ProductServiceTests", "\tAs a Developer \r\n\tI want to add a new Product throught API\r\n\tSo that I can be av" +
-                    "ailable for applications.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "ProductServiceTests", "As a Developer \r\nI want to add a new Product throught API\r\nSo that I can be avail" +
+                    "able for applications.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -79,18 +79,18 @@ namespace Supermarket1.API.Test
         public virtual void FeatureBackground()
         {
 #line 6
-#line hidden
+ #line hidden
 #line 7
- testRunner.Given("the endpoint https://localhost:5001/api/v1/products is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+  testRunner.Given("the endpoint https://localhost:5001/api/v1/product is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name"});
-            table1.AddRow(new string[] {
+            table23.AddRow(new string[] {
                         "1",
                         "Fruits and Vegetables"});
 #line 8
- testRunner.And("A Category is already stored", ((string)(null)), table1, "And ");
+  testRunner.And("A Category is already stored", ((string)(null)), table23, "And ");
 #line hidden
         }
         
@@ -99,18 +99,18 @@ namespace Supermarket1.API.Test
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Add prduct")]
+        [Xunit.SkippableFactAttribute(DisplayName="Add product")]
         [Xunit.TraitAttribute("FeatureTitle", "ProductServiceTests")]
-        [Xunit.TraitAttribute("Description", "Add prduct")]
+        [Xunit.TraitAttribute("Description", "Add product")]
         [Xunit.TraitAttribute("Category", "product-adding")]
-        public virtual void AddPrduct()
+        public virtual void AddProduct()
         {
             string[] tagsOfScenario = new string[] {
                     "product-adding"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add prduct", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add product", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 13
- this.ScenarioInitialize(scenarioInfo);
+  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -130,36 +130,36 @@ namespace Supermarket1.API.Test
             {
                 this.ScenarioStart();
 #line 6
-this.FeatureBackground();
+ this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "QuantityPackage",
                             "UnitOfMeasurement",
                             "CategoryId"});
-                table2.AddRow(new string[] {
+                table24.AddRow(new string[] {
                             "Apple",
                             "3",
                             "2",
                             "1"});
 #line 14
-  testRunner.When("a Post request is sent", ((string)(null)), table2, "When ");
+   testRunner.When("a Post request is sent", ((string)(null)), table24, "When ");
 #line hidden
 #line 17
-  testRunner.Then("A response with Status 200 is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.Then("A response with Status 200 is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "QuantityPackage",
                             "UnitOfMeasurement",
                             "CategoryId"});
-                table3.AddRow(new string[] {
+                table25.AddRow(new string[] {
                             "Apple",
                             "3",
                             "MG",
                             "1"});
 #line 18
-  testRunner.And("A product Resource is included in Response Body", ((string)(null)), table3, "And ");
+   testRunner.And("A product Resource is included in Response Body", ((string)(null)), table25, "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -176,7 +176,7 @@ this.FeatureBackground();
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Product with Invalid Category", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 22
- this.ScenarioInitialize(scenarioInfo);
+  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -196,43 +196,43 @@ this.FeatureBackground();
             {
                 this.ScenarioStart();
 #line 6
-this.FeatureBackground();
+ this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "QuantityPackage",
                             "UnitOfMeasurement",
                             "CategoryId"});
-                table4.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "Orange",
                             "1",
                             "2",
                             "200"});
 #line 23
-  testRunner.When("a Post request is sent", ((string)(null)), table4, "When ");
+   testRunner.When("a Post request is sent", ((string)(null)), table26, "When ");
 #line hidden
 #line 26
-  testRunner.Then("A response with Status 400 is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.Then("A response with Status 400 is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 27
-  testRunner.And("a Message of \"Invalid Category.\" is included in Response Body", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("a Message of \"Invalid Category.\" is included in Response Body", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Add prduct with existing Name")]
+        [Xunit.SkippableFactAttribute(DisplayName="Add product with existing Name")]
         [Xunit.TraitAttribute("FeatureTitle", "ProductServiceTests")]
-        [Xunit.TraitAttribute("Description", "Add prduct with existing Name")]
+        [Xunit.TraitAttribute("Description", "Add product with existing Name")]
         [Xunit.TraitAttribute("Category", "duplicated-product")]
-        public virtual void AddPrductWithExistingName()
+        public virtual void AddProductWithExistingName()
         {
             string[] tagsOfScenario = new string[] {
                     "duplicated-product"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add prduct with existing Name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add product with existing Name", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 29
- this.ScenarioInitialize(scenarioInfo);
+  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -252,39 +252,39 @@ this.FeatureBackground();
             {
                 this.ScenarioStart();
 #line 6
-this.FeatureBackground();
+ this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "QuantityPackage",
                             "UnitOfMeasurement",
                             "CategoryId"});
-                table5.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "Banana",
                             "2",
                             "2",
                             "1"});
 #line 30
-  testRunner.Given("a Product is already stored", ((string)(null)), table5, "Given ");
+   testRunner.Given("a Product is already stored", ((string)(null)), table27, "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "QuantityPackage",
                             "UnitOfMeasurement",
                             "CategoryId"});
-                table6.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "Banana",
                             "1",
                             "2",
                             "1"});
 #line 33
-  testRunner.When("a Post request is sent", ((string)(null)), table6, "When ");
+   testRunner.When("a Post request is sent", ((string)(null)), table28, "When ");
 #line hidden
 #line 36
-  testRunner.Then("A response with Status 400 is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+   testRunner.Then("A response with Status 400 is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 37
-  testRunner.And("a Message of \"Product Name already exists.\" is included in Response Body", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.And("a Message of \"Product Name already exists.\" is included in Response Body", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

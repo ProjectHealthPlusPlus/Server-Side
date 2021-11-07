@@ -13,6 +13,6 @@ namespace HealthPlusPlus_AW.Resources
         [SwaggerSchema("Diagnostic Description")]
         public string Description { get; set; }
         
-        public SpecialtyResource SpecialtyResource { get; set; }
+        public SpecialtyResource Specialty { get; set; }
     }
 }
