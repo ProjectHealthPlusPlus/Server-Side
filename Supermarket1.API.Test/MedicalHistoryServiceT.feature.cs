@@ -83,14 +83,14 @@ namespace Supermarket1.API.Test
 #line 7
   testRunner.Given("the endpoint https://localhost:5001/api/v1/medicalhistory is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Dni",
                         "Name",
                         "Lastname",
                         "Age",
                         "Address"});
-            table17.AddRow(new string[] {
+            table24.AddRow(new string[] {
                         "1",
                         "72837483",
                         "Simba",
@@ -98,16 +98,16 @@ namespace Supermarket1.API.Test
                         "23",
                         "Lima"});
 #line 8
-  testRunner.And("A Patient is already stored", ((string)(null)), table17, "And ");
+  testRunner.And("A Patient is already stored", ((string)(null)), table24, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Dni",
                         "Name",
                         "Lastname",
                         "Age",
                         "ClinicLocationId"});
-            table18.AddRow(new string[] {
+            table25.AddRow(new string[] {
                         "2",
                         "88888888",
                         "Ricardo",
@@ -115,7 +115,7 @@ namespace Supermarket1.API.Test
                         "23",
                         "null"});
 #line 11
-  testRunner.And("A Clinic is already stored", ((string)(null)), table18, "And ");
+  testRunner.And("A Clinic is already stored", ((string)(null)), table25, "And ");
 #line hidden
         }
         
@@ -157,30 +157,30 @@ namespace Supermarket1.API.Test
 #line 6
  this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "PatientId",
                             "DoctorId"});
-                table19.AddRow(new string[] {
+                table26.AddRow(new string[] {
                             "3",
                             "1",
                             "2"});
 #line 17
-  testRunner.When("a Medical History Post request is sent", ((string)(null)), table19, "When ");
+  testRunner.When("a Medical History Post request is sent", ((string)(null)), table26, "When ");
 #line hidden
 #line 20
   testRunner.Then("A response with Status 200 is received for medical history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-                TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "PatientId",
                             "DoctorId"});
-                table20.AddRow(new string[] {
+                table27.AddRow(new string[] {
                             "3",
                             "1",
                             "2"});
 #line 21
-  testRunner.And("A Medical History Resource is included in Response Body", ((string)(null)), table20, "And ");
+  testRunner.And("A Medical History Resource is included in Response Body", ((string)(null)), table27, "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -219,16 +219,16 @@ namespace Supermarket1.API.Test
 #line 6
  this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "PatientId",
                             "DoctorId"});
-                table21.AddRow(new string[] {
+                table28.AddRow(new string[] {
                             "3",
                             "1",
                             "404"});
 #line 26
-  testRunner.When("a Medical History Post request is sent", ((string)(null)), table21, "When ");
+  testRunner.When("a Medical History Post request is sent", ((string)(null)), table28, "When ");
 #line hidden
 #line 29
   testRunner.Then("A response with Status 400 is received for medical history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -273,16 +273,16 @@ namespace Supermarket1.API.Test
 #line 6
  this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "PatientId",
                             "DoctorId"});
-                table22.AddRow(new string[] {
+                table29.AddRow(new string[] {
                             "3",
                             "404",
                             "1"});
 #line 33
-  testRunner.When("a Medical History Post request is sent", ((string)(null)), table22, "When ");
+  testRunner.When("a Medical History Post request is sent", ((string)(null)), table29, "When ");
 #line hidden
 #line 36
   testRunner.Then("A response with Status 400 is received for medical history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
