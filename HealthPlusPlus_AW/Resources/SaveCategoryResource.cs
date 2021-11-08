@@ -6,8 +6,6 @@ namespace HealthPlusPlus_AW.Resources
     {
         [Required]
         [MaxLength(30)]
-        public string Name { get; set; } 
-        
-        
+        public string Name { get; set; }
     }
 }

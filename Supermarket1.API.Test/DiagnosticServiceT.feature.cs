@@ -83,27 +83,27 @@ namespace Supermarket1.API.Test
 #line 7
         testRunner.Given("the endpoint https://localhost:5001/api/v1/diagnostic is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name",
                         "Description"});
-            table6.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "1",
                         "Cardiology",
                         "Heart"});
 #line 8
-        testRunner.And("A Specialty is already stored", ((string)(null)), table6, "And ");
+        testRunner.And("A Specialty is already stored", ((string)(null)), table12, "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
-                        "Name",
-                        "Description"});
-            table7.AddRow(new string[] {
+                        "PatientId",
+                        "ClinicId"});
+            table13.AddRow(new string[] {
                         "2",
-                        "Cardiology",
-                        "Heart"});
+                        "null",
+                        "null"});
 #line 11
-        testRunner.And("A Medical History is already stored", ((string)(null)), table7, "And ");
+        testRunner.And("A Medical History is already stored", ((string)(null)), table13, "And ");
 #line hidden
         }
         
@@ -145,36 +145,34 @@ namespace Supermarket1.API.Test
 #line 6
     this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Id",
+                TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                             "PublishDate",
                             "Description",
                             "SpecialtyId",
                             "MedicalHistoryId"});
-                table8.AddRow(new string[] {
-                            "101",
+                table14.AddRow(new string[] {
                             "null",
                             "Healthy",
                             "1",
                             "2"});
 #line 17
-        testRunner.When("a diagnostic Post request is sent", ((string)(null)), table8, "When ");
+        testRunner.When("a diagnostic Post request is sent", ((string)(null)), table14, "When ");
 #line hidden
 #line 20
         testRunner.Then("A response with Status 200 is received for diagnostic", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                             "PublishDate",
                             "Description",
                             "SpecialtyId",
                             "MedicalHistoryId"});
-                table9.AddRow(new string[] {
+                table15.AddRow(new string[] {
                             "null",
                             "Healthy",
                             "1",
                             "2"});
 #line 21
-        testRunner.And("A Diagnostic Resource is included in Response Body", ((string)(null)), table9, "And ");
+        testRunner.And("A Diagnostic Resource is included in Response Body", ((string)(null)), table15, "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -213,24 +211,85 @@ namespace Supermarket1.API.Test
 #line 6
     this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
                             "PublishDate",
                             "Description",
                             "SpecialtyId",
                             "MedicalHistoryId"});
-                table10.AddRow(new string[] {
+                table16.AddRow(new string[] {
+                            "101",
                             "null",
                             "Healthy",
                             "404",
-                            "null"});
+                            "2"});
 #line 27
-        testRunner.When("a diagnostic Post request is sent", ((string)(null)), table10, "When ");
+        testRunner.When("a diagnostic Post request is sent", ((string)(null)), table16, "When ");
 #line hidden
 #line 30
-        testRunner.Then("A response with Status 400 is received for appointment", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.Then("A response with Status 400 is received for diagnostic", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 31
         testRunner.And("a Message of \"Invalid Specialty.\" is included in Response Body for diagnostic", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Add Diagnostic with Invalid Medical History")]
+        [Xunit.TraitAttribute("FeatureTitle", "DiagnosticService")]
+        [Xunit.TraitAttribute("Description", "Add Diagnostic with Invalid Medical History")]
+        [Xunit.TraitAttribute("Category", "diagnostic-invalid-medical-history")]
+        public virtual void AddDiagnosticWithInvalidMedicalHistory()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "diagnostic-invalid-medical-history"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Diagnostic with Invalid Medical History", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 34
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 6
+    this.FeatureBackground();
+#line hidden
+                TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "PublishDate",
+                            "Description",
+                            "SpecialtyId",
+                            "MedicalHistoryId"});
+                table17.AddRow(new string[] {
+                            "101",
+                            "null",
+                            "Healthy",
+                            "2",
+                            "404"});
+#line 35
+      testRunner.When("a diagnostic Post request is sent", ((string)(null)), table17, "When ");
+#line hidden
+#line 38
+      testRunner.Then("A response with Status 400 is received for diagnostic", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 39
+      testRunner.And("a Message of \"Invalid Medical History.\" is included in Response Body for diagnost" +
+                        "ic", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -6,10 +6,6 @@ namespace HealthPlusPlus_AW.Resources
     {
         [Required]
         [MaxLength(50)]
-        public int Id { get; set; }
-        
-        [Required]
-        [MaxLength(50)]
         public string Address { get; set; }
         
         [Required]

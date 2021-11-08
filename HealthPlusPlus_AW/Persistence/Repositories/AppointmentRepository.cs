@@ -11,7 +11,6 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
 {
     public class AppointmentRepository : BaseRepository, IAppointmentRepository
     {
-        private IAppointmentRepository _appointmentRepositoryImplementation;
 
         public AppointmentRepository(AppDbContext context) : base(context)
         {
