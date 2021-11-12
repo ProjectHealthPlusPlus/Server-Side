@@ -19,7 +19,11 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
 
         public async Task<IEnumerable<Appointment>> ListAsync()
         {
-            return await _context.Appointments.ToListAsync();
+            return await _context.Appointments
+                .Include(p=>p.AppointmentDetails.Diagnostic.Specialty)
+                .Include(x => x.Patient)
+                .Include(y => y.Doctor.Clinic.ClinicLocation)
+                .ToListAsync();
         }
 
         public async Task AddAsync(Appointment appointment)

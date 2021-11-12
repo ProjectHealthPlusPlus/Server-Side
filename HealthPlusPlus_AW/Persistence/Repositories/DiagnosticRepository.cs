@@ -17,7 +17,11 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
 
         public async Task<IEnumerable<Diagnostic>> ListAsync()
         {
-            return await _context.Diagnostics.Include(p => p.Specialty).ToListAsync();
+            return await _context.Diagnostics
+                .Include(p => p.Specialty)
+                .Include(x=>x.MedicalHistory.Patient)
+                .Include(y=>y.MedicalHistory.Clinic.ClinicLocation)
+                .ToListAsync();
         }
 
         public async Task AddAsync(Diagnostic diagnostic)
@@ -44,6 +48,14 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
             return await _context.Diagnostics
                 .Where(p => p.SpecialtyId == specialtyId)
                 .Include(p => p.Specialty)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Diagnostic>> FindByMedicalHistoryId(int medicalHistoryId)
+        {
+            return await _context.Diagnostics
+                .Where(p => p.MedicalHistoryId == medicalHistoryId)
+                .Include(p => p.MedicalHistory)
                 .ToListAsync();
         }
 

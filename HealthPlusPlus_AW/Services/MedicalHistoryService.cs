@@ -11,11 +11,15 @@ namespace HealthPlusPlus_AW.Services
     public class MedicalHistoryService : IMedicalHistoryService
     {
         private readonly IMedicalHistoryRepository _medicalHistoryRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IClinicRepository _clinicRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public MedicalHistoryService(IMedicalHistoryRepository medicalHistoryRepository, IUnitOfWork unitOfWork)
+        public MedicalHistoryService(IMedicalHistoryRepository medicalHistoryRepository, IPatientRepository patientRepository, IClinicRepository clinicRepository, IUnitOfWork unitOfWork)
         {
             _medicalHistoryRepository = medicalHistoryRepository;
+            _patientRepository = patientRepository;
+            _clinicRepository = clinicRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -31,7 +35,7 @@ namespace HealthPlusPlus_AW.Services
 
         public async Task<IEnumerable<MedicalHistory>> ListByClinicIdAsync(int clinicId)
         {
-            return await _medicalHistoryRepository.FindByPatientId(clinicId);
+            return await _medicalHistoryRepository.FindByClinicId(clinicId);
         }
 
         public async Task<MedicalHistoryResponse> SaveAsync(MedicalHistory medicalHistory)
@@ -68,21 +72,30 @@ namespace HealthPlusPlus_AW.Services
 
         public async Task<MedicalHistoryResponse> UpdateAsync(int id, MedicalHistory medicalHistory)
         {
-            var existingCategory = await _medicalHistoryRepository.FindIdAsync(id);
+            var existingMedicalHistory = await _medicalHistoryRepository.FindIdAsync(id);
 
-            if (existingCategory == null)
+            if (existingMedicalHistory == null)
                 return new MedicalHistoryResponse("Category no found.");
             
-            existingCategory.Patient = medicalHistory.Patient;
-            existingCategory.Clinic = medicalHistory.Clinic;
-            existingCategory.Diagnostics = medicalHistory.Diagnostics;
+            var existingPatient = await _patientRepository.FindIdAsync(id);
+
+            if (existingPatient == null)
+                return new MedicalHistoryResponse("Patient no found.");
+            
+            var existingClinic = await _clinicRepository.FindIdAsync(id);
+
+            if (existingClinic == null)
+                return new MedicalHistoryResponse("Clinic no found.");
+            
+            existingMedicalHistory.PatientId = medicalHistory.PatientId;
+            existingMedicalHistory.ClinicId = medicalHistory.ClinicId;
 
             try
             {
-                _medicalHistoryRepository.Update(existingCategory);
+                _medicalHistoryRepository.Update(existingMedicalHistory);
                 await _unitOfWork.CompleteAsync();
 
-                return new MedicalHistoryResponse(existingCategory);
+                return new MedicalHistoryResponse(existingMedicalHistory);
             }
             catch (Exception e)
             {

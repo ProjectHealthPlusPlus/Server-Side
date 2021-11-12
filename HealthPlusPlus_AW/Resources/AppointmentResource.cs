@@ -12,8 +12,10 @@ namespace HealthPlusPlus_AW.Resources
         [SwaggerSchema("Appointment StartAt Time")]
         public DateTime StartAt { get; set; }
         
-        public UserResource User { get; set; }
+        public AppointmentDetailsResource AppointmentDetails { get; set; }
+        
+        public PatientResource Patient { get; set; }
         public DoctorResource Doctor { get; set; }
-        public AppointmentDetailsResource Appointment { get; set; }
+        
     }
 }

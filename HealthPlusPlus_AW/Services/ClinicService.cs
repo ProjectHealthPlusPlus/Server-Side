@@ -11,12 +11,14 @@ namespace HealthPlusPlus_AW.Services
     public class ClinicService : IClinicService
     {
         private readonly IClinicRepository _clinicRepository;
+        private readonly IClinicLocationRepository _clinicLocationRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ClinicService(IClinicRepository clinicRepository, IUnitOfWork unitOfWork)
+        public ClinicService(IClinicRepository clinicRepository, IUnitOfWork unitOfWork, IClinicLocationRepository clinicLocationRepository)
         {
             _clinicRepository = clinicRepository;
             _unitOfWork = unitOfWork;
+            _clinicLocationRepository = clinicLocationRepository;
         }
 
         public async Task<IEnumerable<Clinic>> ListAsync()
@@ -62,25 +64,29 @@ namespace HealthPlusPlus_AW.Services
 
         public async Task<ClinicResponse> UpdateAsync(int id, Clinic clinic)
         {
-            var existingCategory = await _clinicRepository.FindIdAsync(id);
+            var existingClinic = await _clinicRepository.FindIdAsync(id);
 
-            if (existingCategory == null)
+            if (existingClinic == null)
                 return new ClinicResponse("Category no found.");
             
-            existingCategory.Dni = clinic.Dni;
-            existingCategory.Name = clinic.Name;
-            existingCategory.Lastname = clinic.Lastname;
-            existingCategory.Age = clinic.Age;
-            
-            existingCategory.ClinicLocation = clinic.ClinicLocation;
-            existingCategory.MedicalHistories = clinic.MedicalHistories;
+            var existingClinicLocation = await _clinicLocationRepository.FindIdAsync(id);
 
+            if (existingClinicLocation == null)
+                return new ClinicResponse("Clinic Location no found.");
+            
+            existingClinic.Dni = clinic.Dni;
+            existingClinic.Name = clinic.Name;
+            existingClinic.Lastname = clinic.Lastname;
+            existingClinic.Age = clinic.Age;
+            
+            existingClinic.ClinicLocationId = clinic.ClinicLocationId;
+            
             try
             {
-                _clinicRepository.Update(existingCategory);
+                _clinicRepository.Update(existingClinic);
                 await _unitOfWork.CompleteAsync();
 
-                return new ClinicResponse(existingCategory);
+                return new ClinicResponse(existingClinic);
             }
             catch (Exception e)
             {

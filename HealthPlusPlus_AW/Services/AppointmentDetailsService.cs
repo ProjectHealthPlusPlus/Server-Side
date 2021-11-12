@@ -64,23 +64,28 @@ namespace HealthPlusPlus_AW.Services
 
         public async Task<AppointmentDetailsResponse> UpdateAsync(int id, AppointmentDetails appointmentDetails)
         {
-            var existingCategory = await _appointmentDetailsRepository.FindIdAsync(id);
+            var existingAppointmentDetails = await _appointmentDetailsRepository.FindIdAsync(id);
 
-            if (existingCategory == null)
+            if (existingAppointmentDetails == null)
                 return new AppointmentDetailsResponse("Category no found.");
             
-            existingCategory.UserStartAt = appointmentDetails.UserStartAt;
-            existingCategory.DoctorStartAt = appointmentDetails.DoctorStartAt;
-            existingCategory.UserEndAt = appointmentDetails.UserEndAt;
-            existingCategory.DoctorEndAt = appointmentDetails.DoctorEndAt;
-            existingCategory.Diagnostic = appointmentDetails.Diagnostic;
+            var existingDiagnostic = await _diagnosticRepository.FindIdAsync(id);
+
+            if (existingDiagnostic == null)
+                return new AppointmentDetailsResponse("Diagnostic no found.");
+            
+            existingAppointmentDetails.UserStartAt = appointmentDetails.UserStartAt;
+            existingAppointmentDetails.DoctorStartAt = appointmentDetails.DoctorStartAt;
+            existingAppointmentDetails.UserEndAt = appointmentDetails.UserEndAt;
+            existingAppointmentDetails.DoctorEndAt = appointmentDetails.DoctorEndAt;
+            existingAppointmentDetails.DiagnosticId = appointmentDetails.DiagnosticId;
 
             try
             {
-                _appointmentDetailsRepository.Update(existingCategory);
+                _appointmentDetailsRepository.Update(existingAppointmentDetails);
                 await _unitOfWork.CompleteAsync();
 
-                return new AppointmentDetailsResponse(existingCategory);
+                return new AppointmentDetailsResponse(existingAppointmentDetails);
             }
             catch (Exception e)
             {

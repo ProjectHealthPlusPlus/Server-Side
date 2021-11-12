@@ -164,8 +164,8 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             //DATA
             builder.Entity<ClinicLocation>().HasData
             (
-                new ClinicLocation {Id = 100, Address = "My", CapitalCity = "Home", Country = "Jelou :)"},
-                new ClinicLocation {Id = 101, Address = "My", CapitalCity = "Home", Country = "Bye :("}
+                new ClinicLocation {Id = 100, Address = "Surco", CapitalCity = "Lima", Country = "Jelou :)"},
+                new ClinicLocation {Id = 101, Address = "San Borga", CapitalCity = "Lima", Country = "Bye :("}
             );
             
             //**********//
@@ -189,8 +189,8 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             //DATA
             builder.Entity<Diagnostic>().HasData
             (
-                new Diagnostic {Id = 100,PublishDate = DateTime.Now, Description = "New Diagnostic", SpecialtyId = 100},
-                new Diagnostic {Id = 101,PublishDate = DateTime.Now, Description = "New Diagnostic 2", SpecialtyId = 101}
+                new Diagnostic {Id = 100,PublishDate = DateTime.Now, Description = "New Diagnostic", SpecialtyId = 101 , MedicalHistoryId = 101},
+                new Diagnostic {Id = 101,PublishDate = DateTime.Now, Description = "New Diagnostic 2", SpecialtyId = 100, MedicalHistoryId = 100}
             );
             
             //**********//
@@ -209,8 +209,8 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             //DATA
             builder.Entity<Doctor>().HasData
             (
-                new Doctor {Id = 102, Dni = "000000", Name = "Ricardo", Lastname = "Palma", Age = 10, SpecialtyId = 100, ClinicId = 104},
-                new Doctor {Id = 103, Dni = "000000", Name = "San", Lastname = "Pablo", Age = 16, SpecialtyId = 101, ClinicId = 104}
+                new Doctor {Id = 102, Dni = "000000", Name = "Pepe", Lastname = "Pipo", Age = 10, SpecialtyId = 100, ClinicId = 104},
+                new Doctor {Id = 103, Dni = "000000", Name = "Santiago", Lastname = "Valencia", Age = 16, SpecialtyId = 101, ClinicId = 104}
             );
             
             //**********//
@@ -231,8 +231,8 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             //DATA
             builder.Entity<MedicalHistory>().HasData
             (
-                new MedicalHistory {Id = 100, PatientId = 100, ClinicId = 100},
-                new MedicalHistory {Id = 101, PatientId = 101, ClinicId = 101}
+                new MedicalHistory {Id = 100, PatientId = 100, ClinicId = 104},
+                new MedicalHistory {Id = 101, PatientId = 101, ClinicId = 105}
             );
             
             //**********//
