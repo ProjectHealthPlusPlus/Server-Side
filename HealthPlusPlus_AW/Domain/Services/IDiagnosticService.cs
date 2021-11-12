@@ -9,6 +9,7 @@ namespace HealthPlusPlus_AW.Domain.Services
     {
         Task<IEnumerable<Diagnostic>> ListAsync();
         Task<IEnumerable<Diagnostic>> ListBySpecialtyIdAsync(int specialtyId);
+        Task<IEnumerable<Diagnostic>> ListByMedicalHistoryIdAsync(int medicalHistoryId);
         Task<DiagnosticResponse> SaveAsync(Diagnostic diagnostic);
         Task<DiagnosticResponse> FindIdAsync(int id);
         Task<DiagnosticResponse> UpdateAsync(int id, Diagnostic diagnostic);

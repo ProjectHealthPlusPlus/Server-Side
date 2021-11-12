@@ -17,7 +17,11 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
 
         public async Task<IEnumerable<Doctor>> ListAsync()
         {
-            return await _context.Doctors.ToListAsync();
+            return await _context.Doctors
+                .Include(x => x.Specialty)
+                .Include(y => y.Clinic.ClinicLocation)
+                .ToListAsync();
+            
         }
 
         public async Task AddAsync(Doctor doctor)

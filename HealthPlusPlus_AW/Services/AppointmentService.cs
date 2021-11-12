@@ -11,12 +11,18 @@ namespace HealthPlusPlus_AW.Services
     public class AppointmentService : IAppointmentService
     {
         private readonly IAppointmentRepository _appointmentRepository;
+        private readonly IAppointmentDetailsRepository _appointmentDetailsRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly IDoctorRepository _doctorRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AppointmentService(IAppointmentRepository appointmentRepository, IUnitOfWork unitOfWork)
+        public AppointmentService(IAppointmentRepository appointmentRepository, IUnitOfWork unitOfWork, IAppointmentDetailsRepository appointmentDetailsRepository, IPatientRepository patientRepository, IDoctorRepository doctorRepository)
         {
             _appointmentRepository = appointmentRepository;
             _unitOfWork = unitOfWork;
+            _appointmentDetailsRepository = appointmentDetailsRepository;
+            _patientRepository = patientRepository;
+            _doctorRepository = doctorRepository;
         }
 
         public async Task<IEnumerable<Appointment>> ListAsync()
@@ -72,20 +78,37 @@ namespace HealthPlusPlus_AW.Services
 
         public async Task<AppointmentResponse> UpdateAsync(int id, Appointment appointment)
         {
-            var existingCategory = await _appointmentRepository.FindIdAsync(id);
+            var existingAppointment = await _appointmentRepository.FindIdAsync(id);
 
-            if (existingCategory == null)
-                return new AppointmentResponse("Category no found.");
+            if (existingAppointment == null)
+                return new AppointmentResponse("Appointment no found.");
             
-            existingCategory.StartAt = appointment.StartAt;
-            existingCategory.AppointmentDetails = appointment.AppointmentDetails;
+            var existingAppointmentDetails = await _appointmentDetailsRepository.FindIdAsync(id);
+
+            if (existingAppointmentDetails == null)
+                return new AppointmentResponse("Patient no found.");
+            
+            var existingPatient = await _patientRepository.FindIdAsync(id);
+
+            if (existingPatient == null)
+                return new AppointmentResponse("Patient no found.");
+            
+            var existingDoctor = await _doctorRepository.FindIdAsync(id);
+
+            if (existingDoctor == null)
+                return new AppointmentResponse("Doctor no found.");
+
+            existingAppointment.StartAt = appointment.StartAt;
+            existingAppointment.AppointmentDetailsId = appointment.AppointmentDetailsId;
+            existingAppointment.PatientId = appointment.PatientId;
+            existingAppointment.DoctorId = appointment.DoctorId;
 
             try
             {
-                _appointmentRepository.Update(existingCategory);
+                _appointmentRepository.Update(existingAppointment);
                 await _unitOfWork.CompleteAsync();
 
-                return new AppointmentResponse(existingCategory);
+                return new AppointmentResponse(existingAppointment);
             }
             catch (Exception e)
             {

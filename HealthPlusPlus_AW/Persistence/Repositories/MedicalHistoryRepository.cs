@@ -17,7 +17,10 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
 
         public async Task<IEnumerable<MedicalHistory>> ListAsync()
         {
-            return await _context.MedicalHistories.ToListAsync();
+            return await _context.MedicalHistories
+                .Include(p=>p.Patient)
+                .Include(x=>x.Clinic.ClinicLocation)
+                .ToListAsync();
         }
 
         public async Task AddAsync(MedicalHistory medicalHistory)

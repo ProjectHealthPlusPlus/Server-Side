@@ -1,4 +1,5 @@
 ﻿using System;
+using HealthPlusPlus_AW.Domain.Models;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace HealthPlusPlus_AW.Resources
@@ -14,5 +15,6 @@ namespace HealthPlusPlus_AW.Resources
         public string Description { get; set; }
         
         public SpecialtyResource Specialty { get; set; }
+        public MedicalHistoryResource MedicalHistory { get; set; }
     }
 }

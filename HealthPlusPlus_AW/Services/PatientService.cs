@@ -66,9 +66,6 @@ namespace HealthPlusPlus_AW.Services
             existingCategory.Name = patient.Name;
             existingCategory.Lastname = patient.Lastname;
             existingCategory.Age = patient.Age;
-            
-            existingCategory.Address = patient.Address;
-            existingCategory.MedicalHistories = patient.MedicalHistories;
 
             try
             {

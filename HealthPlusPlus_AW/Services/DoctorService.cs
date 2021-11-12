@@ -11,12 +11,16 @@ namespace HealthPlusPlus_AW.Services
     public class DoctorService : IDoctorService
     {
         private readonly IDoctorRepository _doctorRepository;
+        private readonly ISpecialtyRepository _specialtyRepository;
+        private readonly IClinicRepository _clinicRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public DoctorService(IDoctorRepository doctorRepository, IUnitOfWork unitOfWork)
+        public DoctorService(IDoctorRepository doctorRepository, IUnitOfWork unitOfWork, IClinicRepository clinicRepository, ISpecialtyRepository specialtyRepository)
         {
             _doctorRepository = doctorRepository;
             _unitOfWork = unitOfWork;
+            _clinicRepository = clinicRepository;
+            _specialtyRepository = specialtyRepository;
         }
 
         public async Task<IEnumerable<Doctor>> ListAsync()
@@ -67,22 +71,35 @@ namespace HealthPlusPlus_AW.Services
 
         public async Task<DoctorResponse> UpdateAsync(int id, Doctor doctor)
         {
-            var existingCategory = await _doctorRepository.FindIdAsync(id);
+            var existingDoctor = await _doctorRepository.FindIdAsync(id);
 
-            if (existingCategory == null)
-                return new DoctorResponse("Category no found.");
+            if (existingDoctor == null)
+                return new DoctorResponse("Doctor no found.");
             
-            existingCategory.Dni = doctor.Dni;
-            existingCategory.Name = doctor.Name;
-            existingCategory.Lastname = doctor.Lastname;
-            existingCategory.Age = doctor.Age;
+            var existingSpecialty = await _doctorRepository.FindIdAsync(id);
 
+            if (existingSpecialty == null)
+                return new DoctorResponse("Specialty no found.");
+            
+            var existingClinic = await _clinicRepository.FindIdAsync(id);
+
+            if (existingClinic == null)
+                return new DoctorResponse("Clinic no found.");
+            
+            existingDoctor.Dni = doctor.Dni;
+            existingDoctor.Name = doctor.Name;
+            existingDoctor.Lastname = doctor.Lastname;
+            existingDoctor.Age = doctor.Age;
+
+            existingDoctor.SpecialtyId = doctor.SpecialtyId;
+            existingDoctor.ClinicId = doctor.ClinicId;
+            
             try
             {
-                _doctorRepository.Update(existingCategory);
+                _doctorRepository.Update(existingDoctor);
                 await _unitOfWork.CompleteAsync();
 
-                return new DoctorResponse(existingCategory);
+                return new DoctorResponse(existingDoctor);
             }
             catch (Exception e)
             {

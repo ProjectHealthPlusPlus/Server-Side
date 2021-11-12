@@ -8,7 +8,8 @@ namespace HealthPlusPlus_AW.Resources
         
         public PatientResource Patient { get; set; }
         public ClinicResource Clinic { get; set; }
-        public IList<DiagnosticResource> Diagnostics { get; set; } = new List<DiagnosticResource>();
+        //
+        // public IList<DiagnosticResource> Diagnostics { get; set; } = new List<DiagnosticResource>();
 
     }
 }

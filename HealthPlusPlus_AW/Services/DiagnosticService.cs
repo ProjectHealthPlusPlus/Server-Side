@@ -12,13 +12,15 @@ namespace HealthPlusPlus_AW.Services
     {
         private readonly IDiagnosticRepository _diagnosticRepository;
         private readonly ISpecialtyRepository _specialtyRepository;
+        private readonly IMedicalHistoryRepository _medicalHistoryRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public DiagnosticService(IDiagnosticRepository diagnosticRepository, IUnitOfWork unitOfWork, ISpecialtyRepository specialtyRepository)
+        public DiagnosticService(IDiagnosticRepository diagnosticRepository, IUnitOfWork unitOfWork, ISpecialtyRepository specialtyRepository, IMedicalHistoryRepository medicalHistoryRepository)
         {
             _diagnosticRepository = diagnosticRepository;
             _unitOfWork = unitOfWork;
             _specialtyRepository = specialtyRepository;
+            _medicalHistoryRepository = medicalHistoryRepository;
         }
 
         public async Task<IEnumerable<Diagnostic>> ListAsync()
@@ -29,6 +31,11 @@ namespace HealthPlusPlus_AW.Services
         public async Task<IEnumerable<Diagnostic>> ListBySpecialtyIdAsync(int specialtyId)
         {
             return await _diagnosticRepository.FindBySpecialtyId(specialtyId);
+        }
+
+        public async Task<IEnumerable<Diagnostic>> ListByMedicalHistoryIdAsync(int medicalHistoryId)
+        {
+            return await _diagnosticRepository.FindByMedicalHistoryId(medicalHistoryId);
         }
 
         public async Task<DiagnosticResponse> SaveAsync(Diagnostic diagnostic)
@@ -82,12 +89,18 @@ namespace HealthPlusPlus_AW.Services
             var existingSpecialty = await _specialtyRepository.FindIdAsync(id);
 
             if (existingSpecialty == null)
-                return new DiagnosticResponse("Diagnostic no found.");
+                return new DiagnosticResponse("Specialty no found.");
+            
+            var existingMedicalHistory = await _medicalHistoryRepository.FindIdAsync(id);
+
+            if (existingMedicalHistory == null)
+                return new DiagnosticResponse("Medical History no found.");
             
             existingDiagnostic.PublishDate = diagnostic.PublishDate;
             existingDiagnostic.Description = diagnostic.Description;
             
             existingDiagnostic.SpecialtyId = diagnostic.SpecialtyId;
+            existingDiagnostic.MedicalHistoryId = diagnostic.MedicalHistoryId;
 
             try
             {
