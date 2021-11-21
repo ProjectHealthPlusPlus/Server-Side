@@ -213,12 +213,20 @@ namespace Supermarket1.API.Test
 #line 6
     this.FeatureBackground();
 #line hidden
+<<<<<<< Updated upstream
                 TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+=======
+                TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+>>>>>>> Stashed changes
                             "PublishDate",
                             "Description",
                             "SpecialtyId",
                             "MedicalHistoryId"});
+<<<<<<< Updated upstream
                 table10.AddRow(new string[] {
+=======
+                table16.AddRow(new string[] {
+>>>>>>> Stashed changes
                             "null",
                             "Healthy",
                             "404",
@@ -236,6 +244,66 @@ namespace Supermarket1.API.Test
             this.ScenarioCleanup();
         }
         
+<<<<<<< Updated upstream
+=======
+        [Xunit.SkippableFactAttribute(DisplayName="Add Diagnostic with Invalid Medical History")]
+        [Xunit.TraitAttribute("FeatureTitle", "DiagnosticService")]
+        [Xunit.TraitAttribute("Description", "Add Diagnostic with Invalid Medical History")]
+        [Xunit.TraitAttribute("Category", "diagnostic-invalid-medical-history")]
+        public virtual void AddDiagnosticWithInvalidMedicalHistory()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "diagnostic-invalid-medical-history"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Diagnostic with Invalid Medical History", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 34
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 6
+    this.FeatureBackground();
+#line hidden
+                TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                            "PublishDate",
+                            "Description",
+                            "SpecialtyId",
+                            "MedicalHistoryId"});
+                table17.AddRow(new string[] {
+                            "null",
+                            "Healthy",
+                            "1",
+                            "404"});
+#line 35
+      testRunner.When("a diagnostic Post request is sent", ((string)(null)), table17, "When ");
+#line hidden
+#line 38
+      testRunner.Then("A response with Status 400 is received for diagnostic", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 39
+      testRunner.And("a Message of \"Invalid Medical History.\" is included in Response Body for diagnost" +
+                        "ic", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+>>>>>>> Stashed changes
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

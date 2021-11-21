@@ -17,6 +17,7 @@ namespace HealthPlusPlus_AW.Resources
         public string Lastname { get; set; } 
         
         [Required]
+        [MaxLength(3)]
         public int Age { get; set; } 
     }
 }

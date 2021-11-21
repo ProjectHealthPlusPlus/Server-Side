@@ -1,17 +1,16 @@
 ﻿using System;
+using AutoMapper.Configuration;
 using HealthPlusPlus_AW.Domain.Models;
 using HealthPlusPlus_AW.Extensions;
+using HealthPlusPlus_AW.Security.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace HealthPlusPlus_AW.Persistence.Contexts
 {
     public class AppDbContext : DbContext
     {
-
-        public AppDbContext(DbContextOptions options) : base(options)
-        {
-        }
-
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<AppointmentDetails> AppointmentsDetails { get; set; }
@@ -24,6 +23,19 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserSec> UserSecs { get; set; }
+        
+        protected readonly IConfiguration _configuration;
+        public AppDbContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        {
+            builder.UseMySQL(_configuration.GetConnectionString("DefaultConnection"));
+        }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -305,11 +317,14 @@ namespace HealthPlusPlus_AW.Persistence.Contexts
             builder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(30);
             builder.Entity<User>().Property(p => p.Lastname).IsRequired().HasMaxLength(30);
             builder.Entity<User>().Property(p => p.Age).IsRequired();
-
-
-
-            //Relationships
             
+            builder.Entity<UserSec>().ToTable("UserSec");
+            builder.Entity<UserSec>().HasKey(p => p.Id);
+            builder.Entity<UserSec>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<UserSec>().Property(p => p.FirstName).IsRequired().HasMaxLength(30);
+            builder.Entity<UserSec>().Property(p => p.LastName).IsRequired().HasMaxLength(30);
+            builder.Entity<UserSec>().Property(p => p.Username).IsRequired().HasMaxLength(30);
+
             builder.UseSnakeCaseNamingConvention(); 
         }
     }

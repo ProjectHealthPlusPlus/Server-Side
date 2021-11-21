@@ -71,7 +71,6 @@ namespace Supermarket1.API.Test
         public async void GivenACategoryIsAlreadyStored(Table saveCategoryResource)
         {
             var categoryUri = new Uri("https://localhost:5001/api/v1/categories");
-            // var resource = new Category() {Id = 100, Name = "Fruits and Vegetables"};
             var resource = saveCategoryResource.CreateSet<SaveCategoryResource>().First();
             var content = new StringContent(resource.ToJson(), Encoding.UTF8, MediaTypeNames.Application.Json);
             var categoryResponse = Client.PostAsync(categoryUri, content);

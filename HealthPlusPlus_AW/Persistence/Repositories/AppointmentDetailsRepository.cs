@@ -17,7 +17,13 @@ namespace HealthPlusPlus_AW.Persistence.Repositories
 
         public async Task<IEnumerable<AppointmentDetails>> ListAsync()
         {
+<<<<<<< Updated upstream
             return await _context.AppointmentsDetails.ToListAsync();
+=======
+            return await _context.AppointmentsDetails
+                .Include(p => p.Diagnostic.Specialty)
+                .ToListAsync();
+>>>>>>> Stashed changes
         }
 
         public async Task AddAsync(AppointmentDetails appointmentDetails)

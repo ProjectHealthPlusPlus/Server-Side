@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 
 namespace HealthPlusPlus_AW.Resources
 {
@@ -16,5 +15,8 @@ namespace HealthPlusPlus_AW.Resources
         
         [Required]
         public int SpecialtyId { get; set; }
+        
+        [Required]
+        public int MedicalHistoryId { get; set; }
     }
 }

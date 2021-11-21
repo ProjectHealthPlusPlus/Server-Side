@@ -6,7 +6,6 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using HealthPlusPlus_AW;
-using HealthPlusPlus_AW.Domain.Models;
 using HealthPlusPlus_AW.Resources;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
@@ -18,7 +17,7 @@ using Xunit;
 namespace Supermarket1.API.Test
 {
     [Binding]
-    public sealed class DiagnosticServiceStepsDefinition
+    public class DiagnosticServiceStepsDefinition
     {
         private readonly WebApplicationFactory<Startup> _factory;
         private HttpClient Client { get; set; }
@@ -47,19 +46,20 @@ namespace Supermarket1.API.Test
             Response = Client.PostAsync(BaseUri, content);
         }
 
-        [Then(@"A response with the Status (.*) is received")]
-        public void ThenAResponseWithTheStatusIsReceived(int expectedStatus)
-        {
-            var expectedStatusCode = ((HttpStatusCode) expectedStatus).ToString();
-            var actualStatusCode = Response.Result.StatusCode.ToString();
-            Assert.Equal(expectedStatusCode,actualStatusCode);
-        }
+        // [Then(@"A response with the Status (.*) is received")]
+        // public void ThenAResponseWithTheStatusIsReceived(int expectedStatus)
+        // {
+        //     var expectedStatusCode = ((HttpStatusCode) expectedStatus).ToString();
+        //     var actualStatusCode = Response.Result.StatusCode.ToString();
+        //     Assert.Equal(expectedStatusCode,actualStatusCode);
+        // }
 
         [Then(@"A Diagnostic Resource is included in Response Body")]
         public async void ThenADiagnosticResourceIsIncludedInResponseBody(Table expectedDiagnosticResource)
         {
             var expectedResource = expectedDiagnosticResource.CreateSet<DiagnosticResource>().First();
             expectedResource.Specialty = Specialty;
+            expectedResource.MedicalHistory = MedicalHistory;
             var responseData = await Response.Result.Content.ReadAsStringAsync();
             var resource = JsonConvert.DeserializeObject<DiagnosticResource>(responseData);
             expectedResource.Id = resource.Id;
@@ -85,8 +85,12 @@ namespace Supermarket1.API.Test
         [Given(@"A Medical History is already stored")]
         public async void GivenAMedicalHistoryIsAlreadyStored(Table saveMedicalHistoryResource)
         {
+<<<<<<< Updated upstream
             var categoryUri = new Uri("https://localhost:5001/api/v1/specialty");
             
+=======
+            var categoryUri = new Uri("https://localhost:5001/api/v1/medicalhistory");
+>>>>>>> Stashed changes
             var resource = saveMedicalHistoryResource.CreateSet<SaveMedicalHistoryResource>().First();
             var content = new StringContent(resource.ToJson(), Encoding.UTF8, MediaTypeNames.Application.Json);
             var medicalHistoryResponse = Client.PostAsync(categoryUri, content);
