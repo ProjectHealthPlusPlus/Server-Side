@@ -25,12 +25,10 @@ So that Patients and Doctors would be able to watch them
     @diagnostic-invalid-specialty
     Scenario: Add Diagnostic with Invalid Specialty
         When a diagnostic Post request is sent
-<<<<<<< Updated upstream
           | Id | PublishDate | Description | SpecialtyId | MedicalHistoryId |
           | 101  | null        | Healthy     | 404         | null             |
         Then A response with Status 400 is received for appointment
         And a Message of "Invalid Specialty." is included in Response Body for diagnostic
-=======
           | PublishDate | Description | SpecialtyId | MedicalHistoryId |
           | null        | Healthy     | 404         | 2                |
         Then A response with Status 400 is received for diagnostic
@@ -43,4 +41,3 @@ So that Patients and Doctors would be able to watch them
         | null        | Healthy     | 1         | 404                |
       Then A response with Status 400 is received for diagnostic
       And a Message of "Invalid Medical History." is included in Response Body for diagnostic
->>>>>>> Stashed changes
