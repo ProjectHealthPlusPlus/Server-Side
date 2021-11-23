@@ -6,7 +6,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using HealthPlusPlus_AW;
-using HealthPlusPlus_AW.Resources;
+using HealthPlusPlus_AW.meeting.Resource;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using SpecFlow.Internal.Json;
