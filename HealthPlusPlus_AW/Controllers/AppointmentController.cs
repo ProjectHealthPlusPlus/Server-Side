@@ -5,6 +5,7 @@ using HealthPlusPlus_AW.Domain.Models;
 using HealthPlusPlus_AW.Domain.Services;
 using HealthPlusPlus_AW.Extensions;
 using HealthPlusPlus_AW.Resources;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealthPlusPlus_AW.Controllers

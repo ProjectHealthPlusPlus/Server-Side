@@ -7,6 +7,14 @@ using HealthPlusPlus_AW.Domain.Repositories;
 using HealthPlusPlus_AW.Domain.Services;
 using HealthPlusPlus_AW.Persistence.Contexts;
 using HealthPlusPlus_AW.Persistence.Repositories;
+using HealthPlusPlus_AW.Security2.Authorization.Handlers.Implementations;
+using HealthPlusPlus_AW.Security2.Authorization.Handlers.Interface;
+using HealthPlusPlus_AW.Security2.Authorization.Middleware;
+using HealthPlusPlus_AW.Security2.Authorization.Settings;
+using HealthPlusPlus_AW.Security2.Domain.Repositories;
+using HealthPlusPlus_AW.Security2.Domain.Services;
+using HealthPlusPlus_AW.Security2.Persistance.Repositories;
+using HealthPlusPlus_AW.Security2.Services;
 using HealthPlusPlus_AW.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,19 +41,35 @@ namespace HealthPlusPlus_AW
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+            
             services.AddControllers();
 
             services.AddRouting(options => options.LowercaseUrls = true);
 
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseInMemoryDatabase("healthPlusPlus-api-in-memory");
-            });
             services.AddSwaggerGen(c =>
             {
                 c.EnableAnnotations();
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "HealthPlusPlus_AW", Version = "v1"});
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
             });
+            
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // services.AddDbContext<AppDbContext>(options =>
+            // {
+            //     options.UseInMemoryDatabase("healthPlusPlus-api-in-memory");
+            // });
             
             //Database
             services.AddDbContext<AppDbContext>(options =>
@@ -53,8 +77,11 @@ namespace HealthPlusPlus_AW
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
             });
             
+            services.AddScoped<AppDbContext>();
+            
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<IJwtHandler, JwtHandler>();
             
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -83,6 +110,10 @@ namespace HealthPlusPlus_AW
             services.AddScoped<ISpecialtyService, SpecialtyService>();
             services.AddScoped<IUserService, UserService>();
             
+            services.AddScoped<IUserSecRepository, UserSecRepository>();
+            services.AddScoped<IUserSecService, UserSecService>();
+            
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,6 +126,17 @@ namespace HealthPlusPlus_AW
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HealthPlusPlus_AW v1"));
             }
 
+            
+            
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
+            app.UseMiddleware<JwtMiddleware>();
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
