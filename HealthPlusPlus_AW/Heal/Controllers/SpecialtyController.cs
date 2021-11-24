@@ -6,6 +6,7 @@ using HealthPlusPlus_AW.Heal.Domain.Services;
 using HealthPlusPlus_AW.Heal.Resource;
 using HealthPlusPlus_AW.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace HealthPlusPlus_AW.Heal.Controllers
 {
@@ -21,6 +22,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+            Summary = "Get All Specialties",
+            Description = "Get All Specialties",
+            OperationId = "GetAllSpecialties")]
         [HttpGet]
         public async Task<IEnumerable<SpecialtyResource>> GetAllAsync()
         {
@@ -29,6 +34,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Get Specialty By Id",
+            Description = "Get Specialty By Id",
+            OperationId = "GetSpecialtyById")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -39,6 +48,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             return Ok(specialtyResource);    
         }
         
+        [SwaggerOperation(
+            Summary = "Create a Specialty",
+            Description = "Create a Specialty",
+            OperationId = "CreateASpecialty")]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveSpecialtyResource resource)
         {
@@ -54,6 +67,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             return Ok(specialtyResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Update a Specialty",
+            Description = "Update a Specialty",
+            OperationId = "UpdateASpecialty")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveSpecialtyResource resource)
         {
@@ -69,6 +86,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             return Ok(categoryResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Delete a Specialty",
+            Description = "Delete a Specialty",
+            OperationId = "DeleteASpecialty")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id) {
             var result = await _specialtyService.DeleteAsync(id);

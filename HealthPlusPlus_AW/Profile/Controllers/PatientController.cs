@@ -6,6 +6,7 @@ using HealthPlusPlus_AW.Profile.Domain.Services;
 using HealthPlusPlus_AW.Profile.Resource;
 using HealthPlusPlus_AW.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace HealthPlusPlus_AW.Profile.Controllers
 {
@@ -21,6 +22,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+            Summary = "Get All Patient",
+            Description = "Get All Patient",
+            OperationId = "GetAllPatient")]
         [HttpGet]
         public async Task<IEnumerable<PatientResource>> GetAllAsync()
         {
@@ -29,6 +34,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Get Patient By Id",
+            Description = "Get Patient By Id",
+            OperationId = "GetPatientById")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -39,6 +48,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return Ok(patientResource);    
         }
         
+        [SwaggerOperation(
+            Summary = "Create a Patient",
+            Description = "Create a Patient",
+            OperationId = "CreateAPatient")]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SavePatientResource resource)
         {
@@ -54,6 +67,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return Ok(patientResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Update a Patient",
+            Description = "Update a Patient",
+            OperationId = "UpdateAPatient")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SavePatientResource resource)
         {
@@ -69,6 +86,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return Ok(categoryResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Delete a Patient",
+            Description = "Delete a Patient",
+            OperationId = "DeleteAPatient")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id) {
             var result = await _patientService.DeleteAsync(id);

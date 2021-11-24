@@ -7,6 +7,7 @@ using HealthPlusPlus_AW.Profile.Domain.Services;
 using HealthPlusPlus_AW.Profile.Resource;
 using HealthPlusPlus_AW.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace HealthPlusPlus_AW.Profile.Controllers
 {
@@ -22,6 +23,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+            Summary = "Get All Claim Clinics",
+            Description = "Get All Clinics",
+            OperationId = "GetAllClinics")]
         [HttpGet]
         public async Task<IEnumerable<ClinicResource>> GetAllAsync()
         {
@@ -30,6 +35,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Get Clinic By Id",
+            Description = "Get Clinic By Id",
+            OperationId = "GetClinicById")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -40,6 +49,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return Ok(clinicResource);    
         }
         
+        [SwaggerOperation(
+            Summary = "Get Clinic By Clinic Location Id",
+            Description = "Get Clinic By Clinic Location Id",
+            OperationId = "GetClinicByClinicLocationId")]
         [HttpGet("/clinic/clinicLocation/{id}")]
         public async Task<IEnumerable<ClinicResource>> GetClinicByClinicLocationIdAsync(int id)
         {
@@ -48,6 +61,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Create a Clinic",
+            Description = "Create a Clinic",
+            OperationId = "CreateAClinic")]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveMedicalHistoryResource resource)
         {
@@ -63,6 +80,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return Ok(categoryResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Update a Clinic",
+            Description = "Update a Clinic",
+            OperationId = "UpdateAClinic")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveClinicResource resource)
         {
@@ -78,6 +99,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return Ok(clinicResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Delete a Clinic",
+            Description = "Delete a Clinic",
+            OperationId = "DeleteAClinic")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id) {
             var result = await _clinicService.DeleteAsync(id);

@@ -6,6 +6,7 @@ using HealthPlusPlus_AW.meeting.Domain.Services;
 using HealthPlusPlus_AW.meeting.Resource;
 using HealthPlusPlus_AW.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace HealthPlusPlus_AW.meeting.Controllers
 {
@@ -21,6 +22,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+            Summary = "Get All Appointment Details",
+            Description = "Get All Appointment Details",
+            OperationId = "GetAllAppointmentDetails")]
         [HttpGet]
         public async Task<IEnumerable<AppointmentDetailsResource>> GetAllAsync()
         {
@@ -29,6 +34,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Get Appointment Details By Id",
+            Description = "Get Appointment Details By Id",
+            OperationId = "GetAppointmentDetailsById")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -39,6 +48,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             return Ok(appointmentDetailsResource);    
         }
 
+        [SwaggerOperation(
+            Summary = "Get Appointment Details By Diagnostic Id",
+            Description = "Get Appointment Details By Diagnostic Id",
+            OperationId = "GetAppointmentDetailsByDiagnosticId")]
         [HttpGet("/appointmentDetails/diagnostic/{id}")]
         public async Task<IEnumerable<AppointmentDetailsResource>> GetByDiagnosticIdAsync(int id)
         {
@@ -47,6 +60,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             return resources; 
         }
         
+        [SwaggerOperation(
+            Summary = "Create an Appointment Details",
+            Description = "Create a Appointment Details",
+            OperationId = "CreateAnAppointmentDetails")]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveAppointmentDetailsResource resource)
         {
@@ -62,6 +79,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             return Ok(appointmentDetailsResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Update an Appointment Details",
+            Description = "Update a Appointment Details",
+            OperationId = "UpdateAnAppointmentDetails")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveAppointmentDetailsResource resource)
         {
@@ -77,6 +98,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             return Ok(appointmentResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Delete an Appointment Details",
+            Description = "Delete a Appointment Details",
+            OperationId = "DeleteAnAppointmentDetails")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id) {
             var result = await _appointmentDetailsService.DeleteAsync(id);

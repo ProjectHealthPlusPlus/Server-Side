@@ -6,6 +6,7 @@ using HealthPlusPlus_AW.meeting.Domain.Services;
 using HealthPlusPlus_AW.meeting.Resource;
 using HealthPlusPlus_AW.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace HealthPlusPlus_AW.meeting.Controllers
 {
@@ -21,6 +22,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+            Summary = "Get All Claim Clinic Locations",
+            Description = "Get All Clinic Locations",
+            OperationId = "GetAllClinicLocations")]
         [HttpGet]
         public async Task<IEnumerable<ClinicLocationResource>> GetAllAsync()
         {
@@ -29,6 +34,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Get a Clinic Location  By Id",
+            Description = "Get a Clinic Location By Id",
+            OperationId = "GetAClinic LocationById")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -39,6 +48,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             return Ok(clinicLocationResource);    
         }
         
+        [SwaggerOperation(
+            Summary = "Create a Clinic Location",
+            Description = "Create a Clinic Location",
+            OperationId = "CreateAClinic Location")]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveClinicLocationResource resource)
         {
@@ -54,6 +67,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             return Ok(categoryResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Update a Clinic Location",
+            Description = "Update a Clinic Location",
+            OperationId = "UpdateAClinic Location")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveClinicLocationResource resource)
         {
@@ -69,6 +86,10 @@ namespace HealthPlusPlus_AW.meeting.Controllers
             return Ok(medicalHistoryResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Delete a Clinic Location",
+            Description = "Delete a Clinic Location",
+            OperationId = "DeleteAClinicLocation")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id) {
             var result = await _clinicLocationService.DeleteAsync(id);

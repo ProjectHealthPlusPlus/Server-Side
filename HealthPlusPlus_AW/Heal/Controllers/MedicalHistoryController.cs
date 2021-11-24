@@ -6,6 +6,7 @@ using HealthPlusPlus_AW.Heal.Domain.Services;
 using HealthPlusPlus_AW.Heal.Resource;
 using HealthPlusPlus_AW.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace HealthPlusPlus_AW.Heal.Controllers
 {
@@ -21,6 +22,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+            Summary = "Get All Medical Histories",
+            Description = "Get All Medical Histories",
+            OperationId = "GetAllMedicalHistories")]
         [HttpGet]
         public async Task<IEnumerable<MedicalHistoryResource>> GetAllAsync()
         {
@@ -29,6 +34,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Get Diagnostics By Id",
+            Description = "Get Diagnostics By Id",
+            OperationId = "GetDiagnosticsById")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -39,6 +48,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             return Ok(medicalHistory);    
         }
         
+        [SwaggerOperation(
+            Summary = "Get Diagnostics By Patient Id",
+            Description = "Get Diagnostics By Patient Id",
+            OperationId = "GetDiagnosticsByPatientId")]
         [HttpGet("/medicalHistory/patient/{id}")]
         public async Task<IEnumerable<MedicalHistoryResource>> GetMedicalHistoryByPatientIdAsync(int id)
         {
@@ -47,6 +60,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Get Diagnostics By Clinic Id",
+            Description = "Get Diagnostics By Clinic Id",
+            OperationId = "GetDiagnosticsByClinicId")]
         [HttpGet("/medicalHistory/clinic/{id}")]
         public async Task<IEnumerable<MedicalHistoryResource>> GetMedicalHistoryByClinicIdAsync(int id)
         {
@@ -55,6 +72,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Create a Medical History",
+            Description = "Create a Medical History",
+            OperationId = "CreateAMedicalHistory")]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveMedicalHistoryResource resource)
         {
@@ -70,6 +91,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             return Ok(categoryResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Update a Medical History",
+            Description = "Update a Medical History",
+            OperationId = "UpdateAMedicalHistory")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveMedicalHistoryResource resource)
         {
@@ -85,6 +110,10 @@ namespace HealthPlusPlus_AW.Heal.Controllers
             return Ok(medicalHistoryResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Delete a Medical History",
+            Description = "Delete a Medical History",
+            OperationId = "DeleteAMedicalHistory")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id) {
             var result = await _medicalHistoryService.DeleteAsync(id);

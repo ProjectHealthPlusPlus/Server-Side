@@ -6,6 +6,7 @@ using HealthPlusPlus_AW.Profile.Domain.Services;
 using HealthPlusPlus_AW.Profile.Resource;
 using HealthPlusPlus_AW.Shared.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace HealthPlusPlus_AW.Profile.Controllers
 {
@@ -21,6 +22,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             _mapper = mapper;
         }
 
+        [SwaggerOperation(
+            Summary = "Get All Doctor",
+            Description = "Get All Doctor",
+            OperationId = "GetAllDoctor")]
         [HttpGet]
         public async Task<IEnumerable<DoctorResource>> GetAllAsync()
         {
@@ -29,6 +34,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Get Doctor By Id",
+            Description = "Get Doctor By Id",
+            OperationId = "GetDoctorById")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
@@ -39,6 +48,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return Ok(doctorResource);    
         }
         
+        [SwaggerOperation(
+            Summary = "Get Doctor By Clinic Specialty Id",
+            Description = "Get Doctor By Clinic Specialty Id",
+            OperationId = "GetDoctorBySpecialtyId")]
         [HttpGet("/doctor/specialty/{id}")]
         public async Task<IEnumerable<DoctorResource>> GetDoctorBySpecialtyIdAsync(int id)
         {
@@ -47,6 +60,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Get Doctor By Clinic Clinic Id",
+            Description = "Get Doctor By Clinic Location Id",
+            OperationId = "GetDoctorByClinicClinicId")]
         [HttpGet("/doctor/clinic/{id}")]
         public async Task<IEnumerable<DoctorResource>> GetDoctorByClinicIdAsync(int id)
         {
@@ -55,6 +72,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return resources;
         }
         
+        [SwaggerOperation(
+            Summary = "Create a Doctor",
+            Description = "Create a Doctor",
+            OperationId = "CreateADoctor")]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveDoctorResource resource)
         {
@@ -70,6 +91,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return Ok(categoryResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Update a Doctor",
+            Description = "Update a Doctor",
+            OperationId = "UpdateADoctor")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveDoctorResource resource)
         {
@@ -85,6 +110,10 @@ namespace HealthPlusPlus_AW.Profile.Controllers
             return Ok(categoryResource);
         }
         
+        [SwaggerOperation(
+            Summary = "Delete a Doctor",
+            Description = "Delete a Doctor",
+            OperationId = "DeleteADoctor")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id) {
             var result = await _doctorService.DeleteAsync(id);
