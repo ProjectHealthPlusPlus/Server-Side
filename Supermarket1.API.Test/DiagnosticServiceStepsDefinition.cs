@@ -6,8 +6,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using HealthPlusPlus_AW;
-using HealthPlusPlus_AW.Domain.Models;
-using HealthPlusPlus_AW.Resources;
+using HealthPlusPlus_AW.Heal.Resource;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using SpecFlow.Internal.Json;
@@ -85,24 +84,23 @@ namespace Supermarket1.API.Test
         [Given(@"A Medical History is already stored")]
         public async void GivenAMedicalHistoryIsAlreadyStored(Table saveMedicalHistoryResource)
         {
-            var categoryUri = new Uri("https://localhost:5001/api/v1/specialty");
+            var categoryUri = new Uri("https://localhost:5001/api/v1/medicalhistory");
             
             var resource = saveMedicalHistoryResource.CreateSet<SaveMedicalHistoryResource>().First();
             var content = new StringContent(resource.ToJson(), Encoding.UTF8, MediaTypeNames.Application.Json);
             var medicalHistoryResponse = Client.PostAsync(categoryUri, content);
             var medicalHistoryResponseData = await medicalHistoryResponse.Result.Content.ReadAsStringAsync();
             var existingMedicalHistory = JsonConvert.DeserializeObject<MedicalHistoryResource>(medicalHistoryResponseData);
-            existingMedicalHistory.Id = 1;
+            existingMedicalHistory.Id = 2;
             MedicalHistory = existingMedicalHistory;
         }
 
         [Then(@"A response with Status (.*) is received for diagnostic")]
-        public async void ThenAResponseWithTheStatusIsReceivedForDiagnostic(string expectedMessage)
+        public void ThenAResponseWithTheStatusIsReceivedForDiagnostic(int expectedStatus)
         {
-            var actualMessage = await Response.Result.Content.ReadAsStringAsync();
-            var jsonActualMessage = actualMessage.ToJson();
-            var jsonExpectedMessage = expectedMessage.ToJson();
-            Assert.Equal(jsonExpectedMessage,jsonActualMessage);
+            var expectedStatusCode = ((HttpStatusCode) expectedStatus).ToString();
+            var actualStatusCode = Response.Result.StatusCode.ToString();
+            Assert.Equal(expectedStatusCode,actualStatusCode);
         }
 
         [Then(@"a Message of ""(.*)"" is included in Response Body for diagnostic")]

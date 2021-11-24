@@ -83,14 +83,14 @@ namespace Supermarket1.API.Test
 #line 7
   testRunner.Given("the endpoint https://localhost:5001/api/v1/product is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table30 = new TechTalk.SpecFlow.Table(new string[] {
                         "Id",
                         "Name"});
-            table23.AddRow(new string[] {
+            table30.AddRow(new string[] {
                         "1",
                         "Fruits and Vegetables"});
 #line 8
-  testRunner.And("A Category is already stored", ((string)(null)), table23, "And ");
+  testRunner.And("A Category is already stored", ((string)(null)), table30, "And ");
 #line hidden
         }
         
@@ -132,34 +132,34 @@ namespace Supermarket1.API.Test
 #line 6
  this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table31 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "QuantityPackage",
                             "UnitOfMeasurement",
                             "CategoryId"});
-                table24.AddRow(new string[] {
+                table31.AddRow(new string[] {
                             "Apple",
                             "3",
                             "2",
                             "1"});
 #line 14
-   testRunner.When("a Post request is sent", ((string)(null)), table24, "When ");
+   testRunner.When("a Post request is sent", ((string)(null)), table31, "When ");
 #line hidden
 #line 17
    testRunner.Then("A response with Status 200 is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-                TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table32 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "QuantityPackage",
                             "UnitOfMeasurement",
                             "CategoryId"});
-                table25.AddRow(new string[] {
+                table32.AddRow(new string[] {
                             "Apple",
                             "3",
                             "MG",
                             "1"});
 #line 18
-   testRunner.And("A product Resource is included in Response Body", ((string)(null)), table25, "And ");
+   testRunner.And("A product Resource is included in Response Body", ((string)(null)), table32, "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -198,18 +198,18 @@ namespace Supermarket1.API.Test
 #line 6
  this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table33 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "QuantityPackage",
                             "UnitOfMeasurement",
                             "CategoryId"});
-                table26.AddRow(new string[] {
+                table33.AddRow(new string[] {
                             "Orange",
                             "1",
                             "2",
                             "200"});
 #line 23
-   testRunner.When("a Post request is sent", ((string)(null)), table26, "When ");
+   testRunner.When("a Post request is sent", ((string)(null)), table33, "When ");
 #line hidden
 #line 26
    testRunner.Then("A response with Status 400 is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -254,31 +254,31 @@ namespace Supermarket1.API.Test
 #line 6
  this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table34 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "QuantityPackage",
                             "UnitOfMeasurement",
                             "CategoryId"});
-                table27.AddRow(new string[] {
+                table34.AddRow(new string[] {
                             "Banana",
                             "2",
                             "2",
                             "1"});
 #line 30
-   testRunner.Given("a Product is already stored", ((string)(null)), table27, "Given ");
+   testRunner.Given("a Product is already stored", ((string)(null)), table34, "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table35 = new TechTalk.SpecFlow.Table(new string[] {
                             "Name",
                             "QuantityPackage",
                             "UnitOfMeasurement",
                             "CategoryId"});
-                table28.AddRow(new string[] {
+                table35.AddRow(new string[] {
                             "Banana",
                             "1",
                             "2",
                             "1"});
 #line 33
-   testRunner.When("a Post request is sent", ((string)(null)), table28, "When ");
+   testRunner.When("a Post request is sent", ((string)(null)), table35, "When ");
 #line hidden
 #line 36
    testRunner.Then("A response with Status 400 is received", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
